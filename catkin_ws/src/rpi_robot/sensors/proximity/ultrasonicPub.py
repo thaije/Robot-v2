@@ -47,7 +47,8 @@ def getRangeUltrasound():
 
     # multiply with the sonic speed (34300 cm/s)
     # and divide by 2, because there and back
-    distance = pulseDuration * 17150
+    print "pulse duration:", pulseDuration
+    distance = (pulseDuration * 17150 / 100)
     distance = round(distance,2)
 
     return distance
@@ -55,16 +56,16 @@ def getRangeUltrasound():
 def talker():
     pub = rospy.Publisher('chatter', Range, queue_size=10)
     rospy.init_node('talker', anonymous=True)
-    rate = rospy.Rate(10) # 10hz
+    rate = rospy.Rate(20) # 10hz
 
     setup()
 
     i = 0
     while not rospy.is_shutdown():
-        range_msg.range = i
+        range_msg.range = getRangeUltrasound()
         i += 0.1
         hello_str = "hello world %s %0.3f" % (rospy.get_time(), range_msg.range)
-        rospy.loginfo(hello_str)
+	rospy.loginfo(hello_str)
         pub.publish(range_msg)
         rate.sleep()
 
