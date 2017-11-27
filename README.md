@@ -18,3 +18,5 @@ Pin setup:
 - external battery to breadboard
 - servo power to breadboard
 - RPI ground to breadboard (important!)
+
+
