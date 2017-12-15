@@ -1,0 +1,2 @@
+beginner_tutorials:rpi_robot
+-DCATKIN_DEVEL_PREFIX=/home/fedya/Desktop/robot/Robot-v2/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/fedya/Desktop/robot/Robot-v2/catkin_ws/install -G Unix Makefiles
