@@ -1,8 +1,0 @@
-prefix=/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/install
-
-Name: rpi_robot
-Description: Description of rpi_robot
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/install/lib 
-Requires: 
