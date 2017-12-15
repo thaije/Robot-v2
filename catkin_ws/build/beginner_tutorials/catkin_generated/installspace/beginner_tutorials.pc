@@ -1,8 +1,8 @@
-prefix=/home/fedya/Desktop/robot/Robot-v2/catkin_ws/install
+prefix=/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/install
 
 Name: beginner_tutorials
 Description: Description of beginner_tutorials
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/fedya/Desktop/robot/Robot-v2/catkin_ws/install/lib 
+Libs: -L/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/install/lib 
 Requires: 

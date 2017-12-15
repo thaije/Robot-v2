@@ -1,8 +1,8 @@
-# Install script for directory: /home/fedya/Desktop/robot/Robot-v2/catkin_ws/src/rpi_robot
+# Install script for directory: /home/tjalling/Desktop/robot/Robot-v2/catkin_ws/src/rpi_robot
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/fedya/Desktop/robot/Robot-v2/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/fedya/Desktop/robot/Robot-v2/catkin_ws/build/rpi_robot/catkin_generated/installspace/rpi_robot.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/build/rpi_robot/catkin_generated/installspace/rpi_robot.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rpi_robot/cmake" TYPE FILE FILES
-    "/home/fedya/Desktop/robot/Robot-v2/catkin_ws/build/rpi_robot/catkin_generated/installspace/rpi_robotConfig.cmake"
-    "/home/fedya/Desktop/robot/Robot-v2/catkin_ws/build/rpi_robot/catkin_generated/installspace/rpi_robotConfig-version.cmake"
+    "/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/build/rpi_robot/catkin_generated/installspace/rpi_robotConfig.cmake"
+    "/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/build/rpi_robot/catkin_generated/installspace/rpi_robotConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rpi_robot" TYPE FILE FILES "/home/fedya/Desktop/robot/Robot-v2/catkin_ws/src/rpi_robot/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rpi_robot" TYPE FILE FILES "/home/tjalling/Desktop/robot/Robot-v2/catkin_ws/src/rpi_robot/package.xml")
 endif()
 
