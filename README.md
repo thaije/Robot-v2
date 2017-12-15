@@ -20,3 +20,19 @@ Pin setup:
 - RPI ground to breadboard (important!)
 
 
+# settings:
+Ubuntu login
+User fedya
+Login kutraspberry
+
+ssh: `ssh fedya@192.168.178.68`
+password: `kutraspberry`
+
+# ROS:
+## install package
+- `source /opt/ros/kinetic/setup.bash`
+- `cd /home/fedya/Desktop/robot/Robot-v2/catkin_ws`
+- `catkin_make`
+
+## run package
+- `roscore`
