@@ -59,10 +59,8 @@ def talker():
 
     setup()
 
-    i = 0
     while not rospy.is_shutdown():
         range_msg.range = i
-        i += 0.1
         hello_str = "hello world %s %0.3f" % (rospy.get_time(), range_msg.range)
         rospy.loginfo(hello_str)
         pub.publish(range_msg)
