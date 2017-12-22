@@ -78,3 +78,4 @@ user: tjalling
 password: kutlinux
 Command: ssh tjalling@tjalling-Lenovo-G780.local
 ```
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8vA3tW4mp8DdzlavlDsVUboZubilnlnaWMPT7GtnB+DJbPXE4BcHf5rE6+W+kjXUaqDwmWR5F8tyVX2AajCFV8dQowJMNniGUlK8IOr3wuuwvjCe3Y+PeftAg/pjxHGO+9t+hvURcIAaNuTh+urCuUTur0+qyz1D8z2/cFzr9/O9FSjOMG6bvPpl9uLWaUwvBMWo92NL9lqL+yHr2DcqftwiUEgEzCyZ2oJgWg0B54hKmHY24d76jD+p2xqNeqlV1X+9mEcw9SP70o3EOGxEzs4So8gAPOA0eJqOIUHvxiMUzwGJCYx5etFVnR+ISg4oz4O87Wi41is4EV6MhoMtp tjalling@tjalling-reactor
