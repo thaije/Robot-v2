@@ -1,5 +1,7 @@
 # Class from Pigpio website to decode rotary encoder pulses
 # Url: http://abyz.co.uk/rpi/pigpio/examples.html#Python code
+# assumes two hal encoders per motor, each generating a tick on up and down of
+# voltage, thus 4 ticks per rotation of motor = rotation of wheel * gear ratio
 
 import pigpio
 
