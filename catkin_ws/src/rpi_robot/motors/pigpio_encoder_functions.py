@@ -82,7 +82,7 @@ def encoderTest():
    pi = pigpio.pi()
 
    decoderLeft = pigpio_encoder.decoder(pi, 14, 15, callbackLeftWheel)
-   decoderRight = pigpio_encoder.decoder(pi, 5, 6, callbackRightWheel)
+   decoderRight = pigpio_encoder.decoder(pi, 17, 27, callbackRightWheel)
 
    print "Starting motors"
    checkEncoders(0.88)
