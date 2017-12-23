@@ -48,34 +48,34 @@ def cleanupEncoders():
 
 def checkEncoders(seconds):
 
-    try:
-        motors = dcMotorControl.initialize_default_motors()
+    # try:
+    motors = dcMotorControl.initialize_default_motors()
 
-        motors[0].forward(100)
-        motors[1].forward(100)
+    motors[0].forward(100)
+    motors[1].forward(100)
 
-        timed = 0
-        while(timed < seconds):
-            print "Encoders :" , leftEncoderTicks, rightEncoderTicks
-            time.sleep(0.1)
-            timed += 0.1
+    timed = 0
+    while(timed < seconds):
+        print "Encoders :" , leftEncoderTicks, rightEncoderTicks
+        time.sleep(0.1)
+        timed += 0.1
 
 
-        print "stopping motors"
-        dcMotorControl.stop_wheels(motors)
-        dcMotorControl.cleanup(motors)
+    print "stopping motors"
+    dcMotorControl.stop_wheels(motors)
+    dcMotorControl.cleanup(motors)
 
-        # check if it continues turning during breaking
-        timed = 0
-        while(timed < 1):
-            time.sleep(0.1)
-            timed += 0.1
+    # check if it continues turning during breaking
+    timed = 0
+    while(timed < 1):
+        time.sleep(0.1)
+        timed += 0.1
 
-        # print encoder ticks
-        print("Final encoder ticks left={}".format(leftEncoderTicks))
-        print("Final encoder ticks right={}".format(rightEncoderTicks))
-    except:
-	print "Unexpected error:", sys.exc_info()[0]
+    # print encoder ticks
+    print("Final encoder ticks left={}".format(leftEncoderTicks))
+    print("Final encoder ticks right={}".format(rightEncoderTicks))
+    # except:
+	# print "Unexpected error:", sys.exc_info()[0]
         #print "error"
         #dcMotorControl.cleanup([motor1, motor2])
 
