@@ -3,6 +3,8 @@
 # assumes two hal encoders per motor, each generating a tick on up and down of
 # voltage, thus 4 ticks per rotation of motor = rotation of wheel * gear ratio
 
+# run pigpio before running
+
 import pigpio
 
 class decoder:
