@@ -1,0 +1,10 @@
+
+<launch>
+    <group ns="sensors">
+        <group ns="ultrasonic">
+            <node name="ultrasonicHead" pkg="rpi_robot" type="talker" />
+            <node name="ultrasonicRight" pkg="rpi_robot" type="talker" />
+            <node name="ultrasonicLeft" pkg="rpi_robot" type="talker" />
+        </group>
+    </group>
+</launch>

@@ -5,6 +5,8 @@ from sensor_msgs.msg import Range
 import RPi.GPIO as GPIO
 import time
 
+# ultrasound sensor left
+
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
 
@@ -47,22 +49,23 @@ def getRangeUltrasound():
 
     # multiply with the sonic speed (34300 cm/s)
     # and divide by 2, because there and back
-    distance = pulseDuration * 17150
+    print "pulse duration:", pulseDuration
+    distance = (pulseDuration * 17150 / 100)
     distance = round(distance,2)
 
     return distance
 
 def talker():
     pub = rospy.Publisher('chatter', Range, queue_size=10)
-    rospy.init_node('talker', anonymous=True)
+    rospy.init_node('ultrasonicHead', anonymous=True)
     rate = rospy.Rate(10) # 10hz
 
     setup()
 
     while not rospy.is_shutdown():
-        range_msg.range = i
-        hello_str = "hello world %s %0.3f" % (rospy.get_time(), range_msg.range)
-        rospy.loginfo(hello_str)
+        range_msg.range = getRangeUltrasound()
+        ultr_str = "Ultrasonic head distance %0.3f at time %s" % (range_msg.range, rospy.get_time())
+        rospy.loginfo(ultr_str)
         pub.publish(range_msg)
         rate.sleep()
 
