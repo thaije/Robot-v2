@@ -22,7 +22,7 @@ def callbackLeftWheel(way):
 
     leftEncoderTicks += way
 
-    print("left={}".format(leftEncoderTicks))
+    #print("left={}".format(leftEncoderTicks))
 
 # update right wheel encoder ticks
 def callbackRightWheel(way):
@@ -30,7 +30,7 @@ def callbackRightWheel(way):
 
     rightEncoderTicks += way
 
-    print("right={}".format(rightEncoderTicks))
+    #print("right={}".format(rightEncoderTicks))
 
 
 # stop the decoders
@@ -56,6 +56,7 @@ def checkEncoders(seconds):
 
         timed = 0
         while(timed < seconds):
+            print "Encoders :" , leftEncoderTicks, rightEncoderTicks
             time.sleep(0.1)
             timed += 0.1
 
@@ -69,11 +70,13 @@ def checkEncoders(seconds):
         while(timed < 1):
             time.sleep(0.1)
             timed += 0.1
+
         # print encoder ticks
         print("Final encoder ticks left={}".format(leftEncoderTicks))
         print("Final encoder ticks right={}".format(rightEncoderTicks))
     except:
-        print "error"
+	print "Unexpected error:", sys.exc_info()[0]
+        #print "error"
         #dcMotorControl.cleanup([motor1, motor2])
 
 

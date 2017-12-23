@@ -170,4 +170,4 @@ def test_encoders_allin():
     cleanup_wheel_encoders(encoders)
     pi.stop()
 
-test_encoders_allin()
+#test_encoders_allin()
