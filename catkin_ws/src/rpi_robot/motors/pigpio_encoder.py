@@ -119,7 +119,7 @@ wheels_ticks_right = 0
 def initialize_default_encoders(pi):
     print "Initializing default encoders"
     decoderLeft = decoder(pi, 14, 15, callback_encoder_leftwheel)
-    decoderRight = decoder(pi, 5, 6, callback_encoder_rightwheel)
+    decoderRight = decoder(pi, 17, 27, callback_encoder_rightwheel)
 
     return [decoderLeft, decoderRight]
 
@@ -169,3 +169,5 @@ def test_encoders_allin():
     test_encoders_external(pi, encoders)
     cleanup_wheel_encoders(encoders)
     pi.stop()
+
+test_encoders_allin()
