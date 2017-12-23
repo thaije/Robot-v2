@@ -128,3 +128,5 @@ def test_wheels_allin():
     motors = initialize_default_motors()
     test_wheels_external(motors)
     cleanup_motors(motors)
+
+#test_wheels_allin()

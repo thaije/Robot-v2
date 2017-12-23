@@ -71,6 +71,7 @@ def checkEncoders(seconds):
 
       dcMotorControl.cleanup([motor1, motor2])
    except:
+      print "error"
       #dcMotorControl.cleanup([motor1, motor2])
 
 
