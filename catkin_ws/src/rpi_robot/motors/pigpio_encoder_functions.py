@@ -18,78 +18,78 @@ pi = None
 
 # update left wheel encoder ticks
 def callbackLeftWheel(way):
-   global leftEncoderTicks
+    global leftEncoderTicks
 
-   leftEncoderTicks += way
+    leftEncoderTicks += way
 
-   print("left={}".format(leftEncoderTicks))
+    print("left={}".format(leftEncoderTicks))
 
 # update right wheel encoder ticks
 def callbackRightWheel(way):
-   global rightEncoderTicks
+    global rightEncoderTicks
 
-   rightEncoderTicks += way
+    rightEncoderTicks += way
 
-   print("right={}".format(rightEncoderTicks))
+    print("right={}".format(rightEncoderTicks))
 
 
 # stop the decoders
 def cleanupEncoders():
-   time.sleep(1)
-   global decoderLeft
-   global decoderRight
+    time.sleep(1)
+    global decoderLeft
+    global decoderRight
 
-   decoderLeft.cancel()
-   decoderRight.cancel()
+    decoderLeft.cancel()
+    decoderRight.cancel()
 
-   global pi
-   pi.stop()
+    global pi
+    pi.stop()
 
 
 def checkEncoders(seconds):
 
-   try:
-      motor1 = Motor(23, 25, 24, 9.0)
-      motor2 = Motor(11, 10, 9, 9.0)
-      motors = [motor1, motor2]
+    try:
+        motors = dcMotorControl.initialize_default_motors()
 
-      dcMotorControl.set_wheel_drive_rates(motors, 70, 70)
-      timed = 0
-      while(timed < seconds):
-         time.sleep(0.1)
-         timed += 0.1
+        motors[0].forward(100)
+        motors[1].forward(100)
 
-      print "stopping motors"
-      dcMotorControl.stop()
-      dcMotorControl.cleanup()
-
-      # check if it continues turning during breaking
-      timed = 0
-      while(timed < 1):
-         time.sleep(0.1)
-         timed += 0.1
-
-      dcMotorControl.cleanup([motor1, motor2])
-   except:
-      print "error"
-      #dcMotorControl.cleanup([motor1, motor2])
+        timed = 0
+        while(timed < seconds):
+            time.sleep(0.1)
+            timed += 0.1
 
 
+        print "stopping motors"
+        dcMotorControl.stop_wheels(motors)
+        dcMotorControl.cleanup(motors)
+
+        # check if it continues turning during breaking
+        timed = 0
+        while(timed < 1):
+            time.sleep(0.1)
+            timed += 0.1
+        # print encoder ticks
+        print("Final encoder ticks left={}".format(leftEncoderTicks))
+        print("Final encoder ticks right={}".format(rightEncoderTicks))
+    except:
+        print "error"
+        #dcMotorControl.cleanup([motor1, motor2])
 
 
 def encoderTest():
-   # setup the encoders when the script is imported
-   pi = pigpio.pi()
+    # setup the encoders when the script is imported
+    pi = pigpio.pi()
 
-   decoderLeft = pigpio_encoder.decoder(pi, 14, 15, callbackLeftWheel)
-   decoderRight = pigpio_encoder.decoder(pi, 17, 27, callbackRightWheel)
+    decoderLeft = pigpio_encoder.decoder(pi, 14, 15, callbackLeftWheel)
+    decoderRight = pigpio_encoder.decoder(pi, 17, 27, callbackRightWheel)
 
-   print "Starting motors"
-   checkEncoders(0.88)
+    print "Starting motors"
+    checkEncoders(4)
 
-   decoderLeft.cancel()
-   decoderRight.cancel()
-   pi.stop()
-   GPIO.cleanup()
+    decoderLeft.cancel()
+    decoderRight.cancel()
+    pi.stop()
+    GPIO.cleanup()
 
 encoderTest()
