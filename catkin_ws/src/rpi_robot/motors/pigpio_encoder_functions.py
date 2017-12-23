@@ -1,3 +1,4 @@
+# ~ 400ticks per rotation of wheel = 100 rotations motor
 # Uses decoder class to keep track of the movement
 # of the wheels
 
@@ -51,8 +52,8 @@ def checkEncoders(seconds):
     # try:
     motors = dcMotorControl.initialize_default_motors()
 
-    motors[0].forward(100)
-    motors[1].forward(100)
+    motors[0].forward(50)
+    motors[1].forward(50)
 
     timed = 0
     while(timed < seconds):
@@ -63,7 +64,7 @@ def checkEncoders(seconds):
 
     print "stopping motors"
     dcMotorControl.stop_wheels(motors)
-    dcMotorControl.cleanup(motors)
+    dcMotorControl.cleanup_motors(motors)
 
     # check if it continues turning during breaking
     timed = 0
@@ -88,7 +89,7 @@ def encoderTest():
     decoderRight = pigpio_encoder.decoder(pi, 17, 27, callbackRightWheel)
 
     print "Starting motors"
-    checkEncoders(4)
+    checkEncoders(0.9)
 
     decoderLeft.cancel()
     decoderRight.cancel()
