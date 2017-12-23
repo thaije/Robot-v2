@@ -1,13 +1,67 @@
+
+# ROS:
+
 ## How to ROS
 - Topic: node publishes messages, node subscribed to a topic can receive these messages
 - Services: A client node sends a request (what is 2+1?) to a Service node, the service node sends a response(2+1=3) back to the client
 - Parameters: rosparam can be used to set, get, load, dump, delete and list parameters (e.g. intialization paramters).
+
+## install catkin packages
+- `source /opt/ros/kinetic/setup.bash`
+- `cd /home/fedya/Desktop/robot/Robot-v2/catkin_ws`
+- `catkin_make`
+- `source catkin_ws/devel/setup.bash`
+
+### camera packages
+## Raspberry pi camera package 1
+- https://github.com/UbiquityRobotics/raspicam_node
+- `roscore`
+- `roslaunch raspicam_node camerav2_1280x960.launch` or other launch file
+- `rqt_image_view`
+
+## raspberry pi camera package 2
+- https://github.com/fpasteau/raspicam_node
+- `roscore`
+- `rosrun raspicam raspicam_node`
+- `rosrun image_view image_view image:=/camera/image _image_transport:=compressed`
+
+
+## Setup ROS connection on two devices (same network):
+- enable ssh on both
+- generate a ssh key if not already present on both
+- put public key of either in ~/.ssh/authorized_keys of other
+- If your users have the same name on both devices, skip this step. Otherwise: Define on each computer in the ssh config file as which user needs to be logged in when sshing to a certain host
+    - `sudo nano /etc/ssh/ssh_config`
+    - Add for instance (and save):
+        - host fedya-rpi.local
+        - hostname fedya-rpi.local
+        - user fedya
+    - Restart ssh to load changes: `sudo systemctl restart ssh`
+
+- http://wiki.ros.org/ROS/NetworkSetup
+- http://wiki.ros.org/ROS/Tutorials/MultipleMachinese
+```
+rpi:
+ip: 192.168.178.68
+hostname: fedya-rpi
+user: fedya
+password: kutraspberry
+Command: ssh fedya@fedya-rpi.local
+
+laptop:
+hostname: tjalling-Lenovo-G780
+ip: 192.168.178.66
+user: tjalling
+password: kutlinux
+Command: ssh tjalling@tjalling-Lenovo-G780.local
+```
 
 ### Topic publisher / Subscriber
 - copy listener and talker from beginner_tutorials/scripts
 - chmod +x file_name.py (for both files)
 - roscore
 - rosrun package_name listener.py/talker.py or listener/talker(for cpp)
+
 
 # Hardware
 ## Parts:
