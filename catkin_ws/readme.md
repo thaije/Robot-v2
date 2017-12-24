@@ -120,6 +120,30 @@ Command: ssh tjalling@tjalling-Lenovo-G780.local
 - Red: 6v on pinout board
 - Yellow: BCM pin 13
 
+### Ultrasound sonars
+- 5v to pinout board + (extra row)
+- Rpi ground to pinout ground
+- See [this link](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi) for the setup of the resistors
+
+##  Sonar 1 (head)
+- Ground to pinout ground
+- Vcc to pinout +
+- Trigger to BCM 20
+- Echo to pinout board see link
+- Pinout board cable between resistors to BCM 21 (echo)
+
+## Sonar 2 (front left as seen from robot)
+- Same as Sonar 1 except for Echo
+- Echo to pinout board see link
+- Trigg to BCM 5
+- Pinout board cable between resistors to BCM 6 (echo)
+
+## Sonar 3 (front right)
+- Same as Sonar 1 except for Echo
+- Echo to pinout board see link
+- Trigg to BCM 19
+- Pinout board cable between resistors to BCM 26 (echo)
+
 # Software:
 
 ## Requirements

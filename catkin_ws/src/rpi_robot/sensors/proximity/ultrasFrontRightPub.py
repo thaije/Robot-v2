@@ -11,8 +11,8 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 #set GPIO Pins
-GPIO_TRIGGER = 23
-GPIO_ECHO = 24
+GPIO_TRIGGER = 19
+GPIO_ECHO = 26
 
 # measurement variables
 maximumRange = 3.6
