@@ -94,17 +94,28 @@ Command: ssh tjalling@tjalling-Lenovo-G780.local
 - Connect pinout board + (6v) to sn75 left 8
 - Pinout board ground to RPI ground
 - Pinout board ground to: sn75 left 4 / 5 / sn75 right 4 / 5 (all 4)
-- DC motor 1 red (m1) sn75 right 3
-- DC motor 1 white(m2) to sn75 right 6
-- DC motor 2 red(m1) to sn75 left 3
-- DC motor 2 white(m2) to sn75 left 6
+- DC motor 1 (right) red cable (says m1 on motor) sn75 right 3
+- DC motor 1 (right) white cable (says m2 on motor) to sn75 right 6
+- DC motor 2 (left) red cable (says m1 on motor) to sn75 left 3
+- DC motor 2 (left) white cable (says m2 on motor) to sn75 left 6
 
 ### DC motors encoder wiring
 - 3v3 from rpi (pin 1) to pinout board (not same side as 6v)
 - ground from rpi to pinout board
 - 3v3 input pins from encoders to pinout board +
 - ground pins from encoders to pinout board ground
-- Right motor encoder output 1 green (cm2) to BCM pin 17
-- Right motor encoder output 2 yellow (cm1) to BCM pin 27
-- Left motor encoder ouput 1 green (cm2) to BCM pin 14
-- Left motor encoder ouput 2 yellow(cm1) to BCM pin 15
+- Right motor encoder output 1 green (says cm2 on motor) to BCM pin 17
+- Right motor encoder output 2 yellow (says cm1 on motor) to BCM pin 27
+- Left motor encoder ouput 1 green (says cm2 on motor) to BCM pin 14
+- Left motor encoder ouput 2 yellow (says cm1 on motor) to BCM pin 15
+
+### Head Servos
+#### Servo 1: (vertical servo)
+- Black: Ground pinout board
+- Red: 6v on pinout board
+- Yellow: BCM pin 18
+
+#### Servo 2: (horizontal servo)
+- Black: Ground pinout board
+- Red: 6v on pinout board
+- Yellow: BCM pin 13
