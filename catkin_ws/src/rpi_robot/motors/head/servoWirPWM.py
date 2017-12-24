@@ -1,4 +1,4 @@
-import wiringpi2 as wiringpi
+import wiringpi
 import time
 
 wiringpi.wiringPiSetupGpio()

@@ -119,3 +119,10 @@ Command: ssh tjalling@tjalling-Lenovo-G780.local
 - Black: Ground pinout board
 - Red: 6v on pinout board
 - Yellow: BCM pin 13
+
+# Software:
+
+## Requirements
+- ROS on RPI (I used Ubuntu 16.04 + ROS)
+- pigpio for python
+- wiringpi for python
