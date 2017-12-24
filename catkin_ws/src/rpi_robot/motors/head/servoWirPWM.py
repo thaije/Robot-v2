@@ -1,6 +1,5 @@
 import wiringpi2 as wiringpi
 import time
-from handy_stuff.functions.functions import *
 
 wiringpi.wiringPiSetupGpio()
 
@@ -59,6 +58,10 @@ class Servo:
 #############################################################
 # General functions
 #############################################################
+# limit a value to a min and max
+def clamp(n, minN, maxN):
+    return max(min(maxN, n), minN)
+
 
 def initialize_default_servos():
     print "Initializing default servos"
