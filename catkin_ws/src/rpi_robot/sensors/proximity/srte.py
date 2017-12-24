@@ -78,10 +78,10 @@ def initialize_default_sonars(pi):
     sonars = []
 
     # Head sonar
-    sonars.append(sonar(pi, None, 21))
+    sonars.append(sonar(pi, 20, 21))
     # Front sonars
-    sonars.append(sonar(pi, None, 20))
-    sonars.append(sonar(pi,   26, 16))
+    sonars.append(sonar(pi, 5, 6))
+    sonars.append(sonar(pi, 19, 26))
 
     return sonars
 
@@ -132,3 +132,5 @@ def test_sonars_allin():
     test_sonars_external(sonars)
     cleanup_sonars(sonars)
     pi.stop()
+
+test_sonars_allin()
