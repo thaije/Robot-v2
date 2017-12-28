@@ -7,7 +7,7 @@ import time
 import pigpio
 import RPi.GPIO as GPIO
 
-import pigpio_encoder
+import encoder_old as pigpio_encoder
 import wheelMotors as dcMotorControl
 
 # One rotation is 360 ticks

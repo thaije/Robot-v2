@@ -43,7 +43,6 @@ class Motor:
     def backward(self, speed):
         """ pinBackward is the forward Pin, so wwiringpi.pwmWrite(18,0)
         wiringpi.pwmWrite(13,0)e change its duty cycle according to speed. """
-
         self.pwm_forward.ChangeDutyCycle(0)
         self.pwm_backward.ChangeDutyCycle(speed)
 
@@ -65,15 +64,18 @@ def set_wheel_drive_rates( wheels, speeds):
         raise ValueError('Number of wheels and speeds is not equal')
 
     for index, speed in enumerate(speeds):
-        # limit the speed to [-99, 99]
-        speed = clamp(speed, -99, 99)
+        set_wheel_speed(wheel[index], speed)
 
-        # set the speed of a wheel
-        if speed < 0:
-            wheels[index].backward(-speed)
-        elif speed > 0:
-            wheels[index].forward(speed)
 
+def set_wheel_speed(wheel, speed):
+    if speed == 0:
+        wheel.stop()
+    elif speed > 0:
+        speed = clamp(speed, 0, 100)
+        wheel.forward(speed)
+    elif speed < 0:
+        speed = clamp(speed, -100, 0)
+        wheel.backward(speed)
 
 
 # stop turning of wheels
