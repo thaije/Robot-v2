@@ -36,6 +36,9 @@ def getRangeUltrasound():
     time.sleep(0.00001)
     GPIO.output(GPIO_TRIGGER, False)
 
+    pulseStart = -1
+    pulseEnd = -1
+    
     # save StartTime
     while GPIO.input(GPIO_ECHO) == 0:
         pulseStart = time.time()
