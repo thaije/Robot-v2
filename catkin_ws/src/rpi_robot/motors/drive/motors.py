@@ -113,7 +113,7 @@ def test_wheels_external(motors):
     sleep(2)
     motors[0].backward(100)
     motors[1].backward(100)
-    sleep(2)
+    sleep(1.7)
     motors[0].stop()
     motors[0].stop()
 

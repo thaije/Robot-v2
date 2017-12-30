@@ -3,6 +3,7 @@
 import rospy
 from std_msgs.msg import Int16
 import encoder
+import pigpio
 
 def publishTicks():
     # init encoder

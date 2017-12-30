@@ -118,11 +118,11 @@ class decoder:
 # General functions
 ##################################################################
 def init_right_encoder(pi):
-    decoderRight = decoder(pi, 17, 27, callback_encoder_rightwheel)
+    decoderRight = decoder(pi, 17, 27)
     return decoderRight
 
 def init_left_encoder(pi):
-    decoderLeft = decoder(pi, 14, 15, callback_encoder_leftwheel)
+    decoderLeft = decoder(pi, 14, 15)
     return decoderLeft
 
 
