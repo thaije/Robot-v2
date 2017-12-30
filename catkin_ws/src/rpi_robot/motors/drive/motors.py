@@ -136,4 +136,4 @@ def test_wheels_allin():
     test_wheels_external(motors)
     cleanup_motors(motors)
 
-test_wheels_allin()
+#test_wheels_allin()
