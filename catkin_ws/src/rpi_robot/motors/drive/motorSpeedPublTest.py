@@ -13,8 +13,9 @@ def talker():
         # hello_str = "testing wheel world %s" % rospy.get_time()
         # rospy.loginfo(hello_str)
         pub.publish(50)
-        time.sleep()
+        time.sleep(1)
         pub.publish(0)
+        break
 
 if __name__ == '__main__':
     try:
