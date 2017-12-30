@@ -55,7 +55,7 @@ def getRangeUltrasound():
     return distance
 
 def talker():
-    pub = rospy.Publisher('chatter', Range, queue_size=10)
+    pub = rospy.Publisher('ultrasonicHead', Range, queue_size=10)
     rospy.init_node('ultrasonicHead', anonymous=True)
     rate = rospy.Rate(10) # 10hz
 
@@ -67,6 +67,7 @@ def talker():
         rospy.loginfo(ultr_str)
         pub.publish(range_msg)
         rate.sleep()
+    GPIO.cleanup()
 
 if __name__ == '__main__':
     try:
