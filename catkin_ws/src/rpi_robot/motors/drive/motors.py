@@ -21,7 +21,6 @@ class Motor:
     def __init__(self, pinForward, pinBackward, pinControl):
         """ Initialize the motor with its control pins and start pulse-width
              modulation """
-
         self.pinForward = pinForward
         self.pinBackward = pinBackward
         self.pinControl = pinControl
@@ -97,6 +96,7 @@ def cleanup_motors(motors):
 
 def initialize_default_motors():
     print "Initializing motors with default settings"
+    GPIO.setmode(GPIO.BCM)
     left_motor = Motor(23, 25, 24)
     right_motor = Motor(11, 10, 9)
 
@@ -110,10 +110,10 @@ def test_wheels_external(motors):
     motors[0].forward(100)
     motors[1].forward(100)
 
-    sleep(2)
+    sleep(1)
     motors[0].backward(100)
     motors[1].backward(100)
-    sleep(1.7)
+    sleep(0.6)
     motors[0].stop()
     motors[0].stop()
 

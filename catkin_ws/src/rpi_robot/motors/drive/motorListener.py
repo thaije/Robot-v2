@@ -3,6 +3,7 @@
 import rospy
 from std_msgs.msg import Int16
 import motors as motorControl
+import time
 
 motors = False
 leftWheelSpeed = False
@@ -16,20 +17,20 @@ def cleanup():
     motorControl.cleanup_motors(motors)
 
 def leftWheel(speed):
-    rospy.loginfo(rospy.get_caller_id() + 'Left wheel cmd %d', speed.data)
+    rospy.loginfo(rospy.get_caller_id() + ' Left wheel cmd %d', speed.data)
 
     global leftWheelSpeed
     if speed.data != leftWheelSpeed:
-        set_wheel_speed(motors[1], speed.data)
+	motorControl.set_wheel_speed(motors[0], speed.data)
         leftWheelSpeed = speed.data
 
 
 def rightWheel(speed):
-    rospy.loginfo(rospy.get_caller_id() + 'Right wheel cmd %d', speed.data)
+    rospy.loginfo(rospy.get_caller_id() + ' Right wheel cmd %d', speed.data)
 
     global rightWheelSpeed
     if speed.data != rightWheelSpeed:
-        set_wheel_speed(motors[0], speed.data)
+        motorControl.set_wheel_speed(motors[1], speed.data)
         rightWheelSpeed = speed.data
 
 
@@ -45,5 +46,10 @@ def listener():
 
 if __name__ == '__main__':
     setup()
-    listener()
-    cleanup()
+    try:
+        listener()
+    except KeyboardInterrupt:
+	print "interrupted by user"
+    finally:
+	print "cleaning up"
+	cleanup()
