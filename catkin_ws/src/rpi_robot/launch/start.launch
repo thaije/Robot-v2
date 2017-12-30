@@ -2,9 +2,18 @@
 <launch>
     <group ns="sensors">
         <group ns="ultrasonic">
-            <node name="ultrasonicHead" pkg="rpi_robot" type="talker" />
-            <node name="ultrasonicRight" pkg="rpi_robot" type="talker" />
-            <node name="ultrasonicLeft" pkg="rpi_robot" type="talker" />
+            <node name="ultrasHeadPub" pkg="rpi_robot" type="talker" />
+            <node name="ultrasFrontRightPub" pkg="rpi_robot" type="talker" />
+            <node name="ultrasFrontLeftPub" pkg="rpi_robot" type="talker" />
+        </group>
+        <group ns="encoders">
+            <node name="lticksPublisher" pkg="rpi_robot" type="talker" />
+            <node name="rticksPublisher" pkg="rpi_robot" type="talker" />
+        </group>
+    </group>
+    <group ns="motors">
+        <group ns="drive">
+            <node name="motorListener" pkg="rpi_robot" type="listener" />
         </group>
     </group>
 </launch>
