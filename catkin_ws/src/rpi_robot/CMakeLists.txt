@@ -153,10 +153,6 @@ include_directories(
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_talker ${catkin_LIBRARIES})
 
-add_executable(ultrasonicPub sensors/proximity/ultrasonicPub.cpp)
-target_link_libraries(ultrasonicPub ${catkin_LIBRARIES})
-add_dependencies(ultrasonicPub ${catkin_EXPORTED_TARGETS})
-
 #############
 ## Install ##
 #############
