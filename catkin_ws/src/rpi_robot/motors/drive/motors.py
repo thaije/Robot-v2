@@ -110,12 +110,12 @@ def test_wheels_external(motors):
     motors[0].forward(100)
     motors[1].forward(100)
 
-    sleep(1)
-    motors[0].backward(100)
-    motors[1].backward(100)
-    sleep(0.6)
+    sleep(3)
+    # motors[0].backward(100)
+    # motors[1].backward(100)
+    # sleep(0.6)
     motors[0].stop()
-    motors[0].stop()
+    motors[1].stop()
 
 
     # print "testing second motor"
@@ -136,4 +136,4 @@ def test_wheels_allin():
     test_wheels_external(motors)
     cleanup_motors(motors)
 
-#test_wheels_allin()
+test_wheels_allin()

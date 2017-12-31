@@ -35,7 +35,7 @@
 
     <node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen"/>
     <node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors" output="screen">
-        <rosparam param="base_width">0.245</rosparam>
+        <rosparam param="base_width">0.17</rosparam>
     </node>
 
 </launch>

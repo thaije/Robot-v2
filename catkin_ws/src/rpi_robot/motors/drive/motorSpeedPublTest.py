@@ -11,11 +11,11 @@ def talker():
 
     while not rospy.is_shutdown():
         print "Forward"
-	pub.publish(70)
+        pub.publish(70)
         time.sleep(1)
-	print "Backward"
+        print "Backward"
         pub.publish(0)
-	print "Done"
+        print "Done"
         break
 
 
