@@ -2,7 +2,7 @@
     <!-- change this next line to include the launch file for your robot's hardware drivers: -->
     <include file="$(find rpi_robot)/launch/start.launch"/>
 
-    <rosparam param="ticks_meter">1000</rosparam>
+    <rosparam param="ticks_meter">1335</rosparam>
 
     <node pkg="differential_drive" type="pid_velocity.py" name="lpid_velocity">
         <remap from="wheel" to="lwheel"/>
