@@ -38,8 +38,8 @@ def rightWheel(speed):
 def listener():
     rospy.init_node('wheelListener', anonymous=True)
 
-    rospy.Subscriber('lmotor', Int16, leftWheel)
-    rospy.Subscriber('rmotor', Int16, rightWheel)
+    rospy.Subscriber('lmotor_cmd', Int16, leftWheel)
+    rospy.Subscriber('rmotor_cmd', Int16, rightWheel)
 
     rospy.spin()
 
