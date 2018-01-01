@@ -49,7 +49,7 @@ if __name__ == '__main__':
     try:
         listener()
     except KeyboardInterrupt:
-	print "interrupted by user"
+	       print "interrupted by user"
     finally:
-	print "cleaning up"
-	cleanup()
+    	print "cleaning up"
+    	cleanup()

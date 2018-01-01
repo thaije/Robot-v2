@@ -37,6 +37,16 @@
         - hostname fedya-rpi.local
         - user fedya
     - Restart ssh to load changes: `sudo systemctl restart ssh`
+    - Set enviromental variables of Raspberry Pi robot:
+        - `export ROS_MASTER_URI=http://fedya-rpi.local:11311`
+        - `export ROS_IP=[ip_of_rpi]`
+    - Set enviromental variables of pc
+        - `export ROS_MASTER_URI=http://fedya-rpo.local:11311`
+        - `export ROS_IP=[IP_OF_PC -> NOT OF RPI]`
+    - To make it easier you can put this stuff in ~/.bashrc so they are exported automatically for new terminals:
+        - `export ROS_PACKAGE_PATH=/home/tjalling/Desktop/robot/Robot-v2/catkin_ws:$ROS_PACKAGE_PATH`
+        - also add ROS_MASTER_URI and ROS_IP
+
 
 - http://wiki.ros.org/ROS/NetworkSetup
 - http://wiki.ros.org/ROS/Tutorials/MultipleMachinese
@@ -61,6 +71,9 @@ Command: ssh tjalling@tjalling-Lenovo-G780.local
 - chmod +x file_name.py (for both files)
 - roscore
 - rosrun package_name listener.py/talker.py or listener/talker(for cpp)
+
+
+
 
 
 # Hardware
@@ -108,6 +121,8 @@ Command: ssh tjalling@tjalling-Lenovo-G780.local
 - Right motor encoder output 2 yellow (says cm1 on motor) to BCM pin 27
 - Left motor encoder ouput 1 green (says cm2 on motor) to BCM pin 14
 - Left motor encoder ouput 2 yellow (says cm1 on motor) to BCM pin 15
+
+Encoder: 1362 for 102cm = 1335 ticks per meter
 
 ### Head Servos
 #### Servo 1: (vertical servo)
