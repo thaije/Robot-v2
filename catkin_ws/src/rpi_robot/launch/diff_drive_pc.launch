@@ -1,6 +1,6 @@
 <launch>
     <!-- change this next line to include the launch file for your robot's hardware drivers: -->
-    <include file="$(find rpi_robot)/launch/start.launch"/>
+    <!-- <include file="$(find rpi_robot)/launch/start.launch"/>
 
     <rosparam param="ticks_meter">1335</rosparam>
 
@@ -31,7 +31,7 @@
         <rosparam param="rate">30</rosparam>
         <rosparam param="timeout_ticks">4</rosparam>
         <rosparam param="rolling_pts">5</rosparam>
-    </node>
+    </node> -->
 
     <node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen"/>
     <node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors" output="screen">
