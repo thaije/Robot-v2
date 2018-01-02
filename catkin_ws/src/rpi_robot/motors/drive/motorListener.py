@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import Int16
+from std_msgs.msg import Float32
 import motors as motorControl
 import time
 
@@ -38,8 +38,8 @@ def rightWheel(speed):
 def listener():
     rospy.init_node('wheelListener', anonymous=True)
 
-    rospy.Subscriber('lmotor_cmd', Int16, leftWheel)
-    rospy.Subscriber('rmotor_cmd', Int16, rightWheel)
+    rospy.Subscriber('lmotor_cmd', Float32, leftWheel)
+    rospy.Subscriber('rmotor_cmd', Float32, rightWheel)
 
     rospy.spin()
 
