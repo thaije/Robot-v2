@@ -6,14 +6,15 @@
             <node name="frontRight" pkg="rpi_robot" type="ultrasFrontRightPub.py" />
             <node name="frontLeft" pkg="rpi_robot" type="ultrasFrontLeftPub.py" />
         </group> -->
-        <group ns="encoders">
+<!--        <group ns="encoders">
             <node name="lwheel" pkg="rpi_robot" type="lticksPublisher.py" />
             <node name="rwheel" pkg="rpi_robot" type="rticksPublisher.py" />
-        </group>
+        </group>-->
     </group>
     <group ns="motors">
         <group ns="drive">
-            <node name="wheelListener" pkg="rpi_robot" type="motorListener.py" />
+          <!--  <node name="motorListener" pkg="rpi_robot" type="motorListener.py" />-->
         </group>
     </group>
+    <node name="motorListener" pkg="rpi_robot" type="motorListener.py" />
 </launch>
