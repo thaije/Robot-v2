@@ -2,19 +2,19 @@
 
 
 import rospy
-from std_msgs.msg import Int16
+from std_msgs.msg import Float32
 import time
 
 def talker():
-    pub = rospy.Publisher('lmotor_cmd', Int16, queue_size=10)
+    pub = rospy.Publisher('lmotor_cmd', Float32, queue_size=10)
     rospy.init_node('wheelTester', anonymous=True)
 
     while not rospy.is_shutdown():
         print "Forward"
-        pub.publish(70)
+        pub.publish(70.0)
         time.sleep(1)
         print "Backward"
-        pub.publish(0)
+        pub.publish(0.0)
         print "Done"
         break
 
