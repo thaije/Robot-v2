@@ -74,7 +74,7 @@ def set_wheel_speed(wheel, speed):
         wheel.forward(speed)
     elif speed < 0:
         speed = clamp(speed, -100, 0)
-        wheel.backward(speed)
+        wheel.backward(-speed)
 
 
 # stop turning of wheels
