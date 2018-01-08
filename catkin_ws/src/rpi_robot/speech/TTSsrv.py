@@ -11,6 +11,8 @@ def handleTTS(req):
     # Speak the text with the requested speechsynth if it exists
     if speechsynth == "espeak":
         speechSynths.espeak(req.text)
+    elif speechsynth == "festival":
+        speechSynths.festival(req.text)
     else:
         response = False
 
