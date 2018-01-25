@@ -13,7 +13,7 @@ def talker():
         print "Forward"
         pub.publish(70.0)
         time.sleep(1)
-        
+
         print "Backward"
         pub.publish(-70.0)
         time.sleep(1)
