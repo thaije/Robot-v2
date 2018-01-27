@@ -5,7 +5,14 @@
 [Image processing with Opencv on RPI](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_table_of_contents_imgproc/py_table_of_contents_imgproc.html)
 
 
-## Audio:
+# Sound Setup
+- Startup rpi
+- Switch speaker to usb only mode after speaker startup
+- Show usb devices: `lsusb` or `dmesg`
+- Make sure no erros
+- Select audio speaker and mic with GUI
+
+## Play / record audio:
 - Uses a USB speaker with mic
 - Install sox library
 - Play audio file: play file.mp3
