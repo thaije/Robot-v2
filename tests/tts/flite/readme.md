@@ -14,4 +14,4 @@ flite --version
 `flite -voice file://cmu_us_eey.flitevox "Breach detected in sector AE34"`
 
 # male voice
-`flite -voice file://cmu_us_bdl.flitevox "Hello how are you"`
+`flite -voice file://cmu_us_bdl.flitevox "Breach detected in sector AE34"`

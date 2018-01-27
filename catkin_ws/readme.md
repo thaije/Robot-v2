@@ -1,3 +1,9 @@
+# Todo:
+- Servos
+    - servo control with pigpio
+    - service
+    - publisher
+- Speech recognition
 
 # ROS:
 
@@ -128,12 +134,12 @@ Encoder: 1362 for 102cm = 1335 ticks per meter
 #### Servo 1: (vertical servo)
 - Black: Ground pinout board
 - Red: 6v on pinout board
-- Yellow: BCM pin 18
+- Yellow: BCM pin 13
 
 #### Servo 2: (horizontal servo)
 - Black: Ground pinout board
 - Red: 6v on pinout board
-- Yellow: BCM pin 13
+- Yellow: BCM pin 18
 
 ### Ultrasound sonars
 - 5v to pinout board + (extra row)
