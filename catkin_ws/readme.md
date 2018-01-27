@@ -1,3 +1,9 @@
+# Todo:
+- Servos
+    - servo control with pigpio
+    - service
+    - publisher
+- Speech recognition
 
 # ROS:
 
