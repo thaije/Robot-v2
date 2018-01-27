@@ -6,11 +6,25 @@ import gevent
 class PocketSphinxListener(object):
     def __init__(self, debug=False):
         # self.hmm = 'cmusphinx-5prealpha-en-us-ptm-2.0/'
+
+        # default
+        # self.grammar = 'grammar.jsgf'
         model_path = get_model_path()
-        self.hmm = os.path.join(model_path, 'en-us')
-        self.dic = 'dictionary.dic'
-        self.lm = 'language_model.lm'
-        self.grammar = 'grammar.jsgf'
+        # self.hmm = os.path.join(model_path, 'en-us')
+        # self.dic = '../dicts/dictionary.dic'
+        # self.lm = '../language_models/language_model.lm'
+
+        # default
+        lm=os.path.join(model_path, 'en-us.lm.bin')
+        dic=os.path.join(model_path, 'cmudict-en-us.dict')
+        self.dic = dic
+        self.lm = lm
+
+        # cmu for pc
+        self.hmm = '../acoustic_models/cmusphinx-en-us-ptm-5.2'
+
+
+
 
         self.bitesize = 512
 
