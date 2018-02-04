@@ -11,14 +11,12 @@ class PocketSphinxListener(object):
         # self.grammar = 'grammar.jsgf'
         model_path = get_model_path()
         # self.hmm = os.path.join(model_path, 'en-us')
-        # self.dic = '../dicts/dictionary.dic'
-        # self.lm = '../language_models/language_model.lm'
+        self.dic = 'dictionary.dic'
+        self.lm = 'language_model.lm'
 
         # default
-        lm=os.path.join(model_path, 'en-us.lm.bin')
-        dic=os.path.join(model_path, 'cmudict-en-us.dict')
-        self.dic = dic
-        self.lm = lm
+#        self.lm=os.path.join(model_path, 'en-us.lm.bin')
+#        self.dic=os.path.join(model_path, 'cmudict-en-us.dict')
 
         # cmu for pc
         self.hmm = '../acoustic_models/cmusphinx-en-us-ptm-5.2'
@@ -106,7 +104,7 @@ class PocketSphinxListener(object):
                         # We are done with the microphone for now so we'll close the stream.
                         self.stream.stop_stream()
                         self.stream.close()
-                        # We have what we came for! A string representing what the user said.
+			# We have what we came for! A string representing what the user said.
                         # We'll now return it to the runMain function so that it can be
                         # processed and some meaning can be gleamed from it.
                         return bestGuess

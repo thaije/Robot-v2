@@ -49,7 +49,7 @@ def runMyMain():
             file=open(filename,'w')
             file.write(command)
             file.close()
-            subprocess.call('festival --tts '+filename, shell=True)
+            subprocess.call('espeak -v en-scottish -k5 -s150 -f '+filename, shell=True)
             subprocess.call('rm -f '+filename, shell=True)
 
             # This will allow us to be good cooperators and sleep for a second.
