@@ -3,18 +3,32 @@ import pyaudio
 import gevent
 
 
+# Options:
+# hmm = "small" . Default is CMU default.
+# dic = "small" . Default is "small"
+# LM = "small" . Default is "small"
+
 class PocketSphinxListener(object):
-    def __init__(self, debug=False):
-        # self.hmm = 'cmusphinx-5prealpha-en-us-ptm-2.0/'
+    def __init__(self, hmm=False, dic=False, lm=False):
+        # defaults
         model_path = get_model_path()
         self.hmm = os.path.join(model_path, 'en-us')
-        self.dic = 'dictionary.dic'
-        self.lm = 'language_model.lm'
-        self.grammar = 'grammar.jsgf'
+        self.dic = '../../dicts/limited_dict.dic'
+        self.lm = '../../lang_models/limited_lang_model.lm'
+
+        if hmm == "small":
+            self.hmm = '../../acoustic_models/cmusphinx-en-us-ptm-5.2'
+
+        if dic == "small":
+            self.dic = '../../dicts/limited_dict.dic'
+
+        if lm == "small":
+            self.lm = '../../lang_models/limited_lang_model.lm'
+
 
         self.bitesize = 512
 
-        self.debug = debug
+        self.debug = False
 
         self.config = Decoder.default_config()
         self.config.set_string('-hmm', self.hmm)
