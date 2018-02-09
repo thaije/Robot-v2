@@ -4,6 +4,9 @@
     - service
     - publisher
 - Speech recognition
+    - Create small dict / lm
+    - send audio to PC and do full dictionary speech processing
+- Dialogue system
 
 # ROS:
 

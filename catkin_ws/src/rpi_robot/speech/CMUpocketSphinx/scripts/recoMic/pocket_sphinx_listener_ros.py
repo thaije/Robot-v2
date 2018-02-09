@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from pocketsphinx import *
 import pyaudio
 import gevent
@@ -9,29 +11,29 @@ import gevent
 # LM = "small" . Default is "small"
 
 class PocketSphinxListener(object):
-    def __init__(self, hmm=False, dic=False, lm=False):
+    def __init__(self, path, hmm=False, dic=False, lm=False):
         # defaults
         model_path = get_model_path()
         self.hmm = os.path.join(model_path, 'en-us')
-        self.dic = 'dicts/limited_dict.dic'
-        self.lm = 'lang_models/limited_lang_model.lm'
+        self.dic = path + 'CMUpocketSphinx/dicts/limited_dict.dic'
+        self.lm = path + 'CMUpocketSphinx/lang_models/limited_lang_model.lm'
 
         if hmm == "small":
             print "Using small acoustic model"
-            self.hmm = 'acoustic_models/cmusphinx-en-us-ptm-5.2'
+            self.hmm = path + 'CMUpocketSphinx/acoustic_models/cmusphinx-en-us-ptm-5.2'
         elif hmm == "cmu":
             print "Using CMU acoustic model"
             self.hmm = os.path.join(model_path, 'en-us')
 
         if dic == "small":
             print "Using small dictionary"
-            self.dic = 'dicts/limited_dict.dic'
+            self.dic = path + 'CMUpocketSphinx/dicts/limited_dict.dic'
         else:
             print "Using small dictionary"
 
         if lm == "small":
             print "Using small language model"
-            self.lm = 'lang_models/limited_lang_model.lm'
+            self.lm = path + 'CMUpocketSphinx/lang_models/limited_lang_model.lm'
         else:
             print "Using small language model"
 
@@ -47,11 +49,12 @@ class PocketSphinxListener(object):
         # This can be used in place of a predetermined grammar file.
         self.config.set_string('-lm', self.lm)
         self.config.set_string('-dict', self.dic)
-#        self.config.set_string('-jsgf', self.grammar)
+
         # Comment out the following line to get debugging output from the decoder. This is useful if the program is failing
         # with an error such as "argument 1 of type 'Decoder *'"
         if not self.debug:
             self.config.set_string('-logfn', '/dev/null')
+            
     	# Alan force log
     	self.config.set_string('-verbose', 'no')
      # 	self.config.set_string('-logfn', 'psphinx.log')

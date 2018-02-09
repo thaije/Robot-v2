@@ -10,7 +10,6 @@ def startPublSTT():
     # Now we set up the voice recognition using Pocketsphinx from CMU Sphinx.
     pocketSphinxListener = PocketSphinxListener(hmm="small", dic="small", lm="small")
 
-
     while True:
         try:
             command = pocketSphinxListener.getCommand().lower()
