@@ -1,4 +1,7 @@
-# Todo:
+# Todo test application:
+- write speechRecognition to parameter
+
+# Todo 2
 - Servos
     - servo control with pigpio
     - service

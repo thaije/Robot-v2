@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sys
-import rospy
+import rospy, rospkg
 from rpi_robot.srv import *
 
 def TTSclient(text, speechsynth):

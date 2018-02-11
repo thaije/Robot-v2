@@ -13,6 +13,8 @@ def handleTTS(req):
         speechSynths.espeak(req.text)
     elif speechsynth == "festival":
         speechSynths.festival(req.text)
+    elif speechsynth == "flite":
+        speechSynths.flite(req.text)
     else:
         response = False
 

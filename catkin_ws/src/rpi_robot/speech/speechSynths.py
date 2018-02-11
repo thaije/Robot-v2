@@ -1,5 +1,6 @@
+#!/usr/bin/env python
+import rospy, rospkg
 import subprocess
-
 
 
 def espeak(text):
@@ -11,4 +12,7 @@ def festival(text):
 
 
 def flite(text):
-    subprocess.call('flite -voice file://cmu_us_bdl.flitevox' + text)
+    rospack = rospkg.RosPack()
+    path = "file://" + rospack.get_path('rpi_robot') + "/speech/cmu_us_bdl.flitevox"
+    print "Path for Flite is: ", path
+    subprocess.call('flite -voice '+ path + ' \"' + text + '\"', shell=True) # shell=True is important!

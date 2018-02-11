@@ -1,0 +1,9 @@
+<launch>
+    <group ns="speech">
+        <param name="conversation" value="[]" />
+        <!-- <node name="speechRecogntion" pkg="rpi_robot" type="speechRecognitionPublisher.py" /> -->
+        <node name="speechSynthesis" pkg="rpi_robot" type="TTSsrv.py" />
+
+        <node name="dialogueSystem" pkg="rpi_robot" type="dialogue.py" />
+    </group>
+</launch>

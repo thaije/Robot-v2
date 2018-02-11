@@ -30,6 +30,8 @@ def speechPubl():
 
         print "Recognized: %s" % command
 
+        # TODO: save command to paramter server
+
         rospy.loginfo(command + str(rospy.get_time()) )
         pub.publish(command)
         rate.sleep()
