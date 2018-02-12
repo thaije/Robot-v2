@@ -4,11 +4,11 @@ import subprocess
 
 
 def espeak(text):
-    subprocess.call('espeak '+text, shell=True)
+    subprocess.call('espeak -v en-scottish -k5 -s150 \"' + text + '\"', shell=True)
 
 
 def festival(text):
-    subprocess.call('echo '+text + '|festival --tts', shell=True)
+    subprocess.call('echo \"'+text + '\"|festival --tts', shell=True)
 
 
 def flite(text):

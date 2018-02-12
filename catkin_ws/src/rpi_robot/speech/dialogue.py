@@ -5,7 +5,8 @@ from time import sleep
 from rpi_robot.srv import *
 from std_msgs.msg import String
 
-synthType = "flite"
+# use default synth defined in launch file
+synthType = rospy.get_param("/speech/TTSdef")
 
 # Text to speech client
 def TTSclient(text, speechsynth):
@@ -18,38 +19,63 @@ def TTSclient(text, speechsynth):
         print "Service call failed: %s"%e
 
 
-def command(text):
-    print "Processing command:", text
+# add speech to the dialogue log
+def addToDialogueLog(user, text):
+    dialogueLog = rospy.get_param("/speech/dialogueLog", [])
+    dialogueLog.append([user, rospy.get_time(), text])
+    rospy.set_param('/speech/dialogueLog', dialogueLog)
 
-    if text == "go left":
-        print "go left"
-    elif text == "go right":
-        print "go right"
+
+def execute(command):
+    print "Processing command:", command
+
+    if command == "turn left":
+        print "turn left"
+    elif command == "turn right":
+        print "turn right"
 
 
 # listen to recognized speech
 def main():
     rospy.init_node('dialogue', anonymous=True)
 
+    # initialize dialogue log to an empty list
+    rospy.set_param('/speech/dialogueLog', [])
+
     while not rospy.is_shutdown():
+
         print "Requesting speech"
-        TTSclient("Hello, human. Please give me a command.", synthType)
-        return True
+        # Speak text and make sure we don't recognize our own text by reseting the last recognized word
+        TTSclient("Hello, human, please give me a command.", synthType)
 
-        latestSpeech = False
-        command = False
+        print "log 1:"
+        print rospy.get_param("/speech/dialogueLog")
 
-        #TODO: get command from parameter server
-        while not latestSpeech:
+        # get response from user
+        rospy.set_param('/speech/lastSpeechRecognized', "")
+        latestSpeech = rospy.get_param('/speech/lastSpeechRecognized')
+        while latestSpeech == "":
             sleep(1.0)
+            latestSpeech = rospy.get_param('/speech/lastSpeechRecognized')
 
-        # Confirm recognized speech
-        command = latestSpeech
-        latestSpeech = False
-        TTSclient("I heard you say: " + command, synthType)
+
+        # Save latest recognized speech to dialogue
+        addToDialogueLog("user1", latestSpeech)
+
+        print "log 2:"
+        print rospy.get_param("/speech/dialogueLog")
+
+        # confirm speech to user
+        TTSclient("I heard you say: " + latestSpeech, synthType)
+
+        print "log 3:"
+        print rospy.get_param("/speech/dialogueLog")
 
         # execute command
-        execute(command)
+        execute(latestSpeech)
+
+        return True
+
 
 
 

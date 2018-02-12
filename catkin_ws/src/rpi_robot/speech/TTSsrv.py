@@ -18,6 +18,11 @@ def handleTTS(req):
     else:
         response = False
 
+    # update latest spoken speech to dialogue log
+    dialogueLog = rospy.get_param("/speech/dialogueLog", [])
+    dialogueLog.append(["self", rospy.get_time(), req.text])
+    rospy.set_param('/speech/dialogueLog', dialogueLog)
+
     # Return a True response, or an error if the speechsynth didn't exist
     if response:
         print "Returning 'True' for speaking: %s. With speech synth: %s" % (req.text, speechsynth)

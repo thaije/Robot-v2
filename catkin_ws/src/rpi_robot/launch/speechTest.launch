@@ -1,0 +1,12 @@
+<launch>
+    <group ns="speech">
+        <param name="STTdef" value="cmu" type="str" />
+        <param name="TTSdef" value="flite" type="str" />
+
+        <node name="speechSynthesis" pkg="rpi_robot" type="TTSsrv.py" />
+        <node name="speechRecognition" pkg="rpi_robot" type="speechRecognitionPublisher.py" />
+
+        <node name="dialogue" pkg="rpi_robot" type="dialogue.py" />
+
+    </group>
+</launch>
