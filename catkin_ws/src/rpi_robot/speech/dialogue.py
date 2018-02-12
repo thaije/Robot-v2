@@ -51,11 +51,14 @@ def main():
         print "log 1:"
         print rospy.get_param("/speech/dialogueLog")
 
+        sleep(3.0)
+        print "Reset last speech recognized",  rospy.get_time()
+
         # get response from user
         rospy.set_param('/speech/lastSpeechRecognized', "")
         latestSpeech = rospy.get_param('/speech/lastSpeechRecognized')
         while latestSpeech == "":
-            sleep(1.0)
+            sleep(1)
             latestSpeech = rospy.get_param('/speech/lastSpeechRecognized')
 
 
