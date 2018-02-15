@@ -16,7 +16,7 @@ def speechPubl():
 
     # init speech recognizer to use
     if speechRecognizer == "cmu":
-        print "Using CMU speech recognizer"
+        rospy.loginfo("Using CMU speech recognizer")
         pocketSphinxListener = PocketSphinxListener(path=path, hmm="small", dic="small", lm="small")
 
     # init ROS node stuff
@@ -30,12 +30,21 @@ def speechPubl():
     while not rospy.is_shutdown():
         command = ""
 
+        # Don't do speech recognition if it is blocked
+        if rospy.get_param('/speech/blockSpeechRecognition'):
+            rate.sleep()
+            continue
+
         if speechRecognizer == "cmu":
             command = pocketSphinxListener.getCommand().lower()
 
+        # Double check if speech recognition is not blocked
+        if rospy.get_param('/speech/blockSpeechRecognition'):
+            rate.sleep()
+            continue
+
         # log reconized speech
-        print "Recognized: %s" % command
-        rospy.loginfo(command + " at " + str(rospy.get_time()) )
+        rospy.loginfo("Recognized: \"" + command + "\"")
 
         # Save text to paramter server, and publish recognized speech
         rospy.set_param('/speech/lastSpeechRecognized', command)

@@ -1,7 +1,12 @@
 <launch>
     <group ns="speech">
+        <!-- Settings, can be customized -->
         <param name="STTdef" value="cmu" type="str" />
         <param name="TTSdef" value="flite" type="str" />
+
+        <!-- Global parameters used by system to communicate events, don't change -->
+        <param name="robotSpeaking" value="0" type="int" />
+        <param name="blockSpeechRecognition" value="0" type="int" />
 
         <node name="speechSynthesis" pkg="rpi_robot" type="TTSsrv.py" />
         <node name="speechRecognition" pkg="rpi_robot" type="speechRecognitionPublisher.py" />

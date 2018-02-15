@@ -29,6 +29,11 @@ def addToDialogueLog(user, text):
 def execute(command):
     print "Processing command:", command
 
+    if "old" in command:
+        # print "how old do you think I am?
+        TTSclient("My body is 2 years old, but I am mature for my age", synthType)
+        TTSclient("How old are you?")
+
     if command == "turn left":
         print "turn left"
     elif command == "turn right":
@@ -41,23 +46,30 @@ def main():
 
     # initialize dialogue log to an empty list
     rospy.set_param('/speech/dialogueLog', [])
+    TTSclient("Hello, human", synthType)
 
     while not rospy.is_shutdown():
 
         print "Requesting speech"
         # Speak text and make sure we don't recognize our own text by reseting the last recognized word
-        TTSclient("Hello, human, please give me a command.", synthType)
+        TTSclient("Please give me a command.", synthType)
 
         print "log 1:"
         print rospy.get_param("/speech/dialogueLog")
 
-        sleep(3.0)
-        print "Reset last speech recognized",  rospy.get_time()
+        # # block the speechrecognition while the robot is speaking
+        # while rospy.get_param('/speech/robotSpeaking') and not rospy.is_shutdown():
+        #     sleep(0.5)
+
+        # the speech recognizer
+        # sleep(1.0)
+        # rospy.loginfo( "Robot done talking + 1s delay" )
+
+
 
         # get response from user
-        rospy.set_param('/speech/lastSpeechRecognized', "")
         latestSpeech = rospy.get_param('/speech/lastSpeechRecognized')
-        while latestSpeech == "":
+        while latestSpeech == "" and not rospy.is_shutdown():
             sleep(1)
             latestSpeech = rospy.get_param('/speech/lastSpeechRecognized')
 
