@@ -5,18 +5,6 @@ import speechSynths
 from time import sleep
 
 
-def unblockSpeech(event):
-    # reset last recognized speech
-    rospy.loginfo( "Reset last speech recognized.")
-    rospy.set_param('/speech/lastSpeechRecognized', "")
-
-    # unblock speech, or not if the robot is talking
-    if not rospy.get_param('/speech/robotSpeaking'):
-        rospy.loginfo( "Unblocked speech recognition \n" )
-        rospy.set_param('/speech/blockSpeechRecognition', False)
-    else:
-        rospy.loginfo( "Failed to unblock STT, robot speaking")
-
 
 def handleTTS(req):
     speechsynth = req.speechsynth
@@ -27,7 +15,6 @@ def handleTTS(req):
 
     # Announce that we are going to speak to the rest of the system, and block STT
     rospy.set_param('/speech/robotSpeaking', True)
-    rospy.set_param('/speech/blockSpeechRecognition', True)
 
     # Speak the text with the requested speechsynth if it exists
     if speechsynth == "espeak":
@@ -38,7 +25,7 @@ def handleTTS(req):
         speechSynths.flite(req.text)
     else:
         response = False
-    rospy.loginfo( "Done speaking \n" )
+    rospy.loginfo( "Done speaking" )
 
     # we are done speaking, reset system variable
     rospy.set_param('/speech/robotSpeaking', False)
@@ -48,18 +35,12 @@ def handleTTS(req):
     dialogueLog.append(["self", rospy.get_time(), req.text])
     rospy.set_param('/speech/dialogueLog', dialogueLog)
 
-
-    # unblock speech recognition after a second
-    rospy.loginfo( "Wait for a second before unblocking speech recognition" )
-    rospy.Timer(rospy.Duration(2), unblockSpeech, oneshot=True)
-
-
     # Return a True response, or an error if the speechsynth didn't exist
     if response:
-        rospy.loginfo( "Speech synthesis exiting" )
+        rospy.loginfo( "Speech synthesis exiting \n" )
         return TTSResponse("True")
 
-    rospy.loginfo( "Error in speechsynthesis, synth does not exist?")
+    rospy.loginfo( "Error in speechsynthesis, synth does not exist? ")
     return TTSResponse("Error, speechsynth \"" + speechsynth + "\" does not exist")
 
 

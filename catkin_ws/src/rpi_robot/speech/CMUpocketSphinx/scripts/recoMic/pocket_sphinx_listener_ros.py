@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from pocketsphinx import *
 import pyaudio
 import gevent
@@ -69,6 +68,22 @@ class PocketSphinxListener(object):
 
         self.pyAudio = pyaudio.PyAudio()
 
+    # check if the mode of Speech Recognition was changed (e.g. disabled),
+    # and stop processing if so
+    def checkIfCanceled(self):
+        if rospy.get_param('/speech/speechRecognitionMode') != 1:
+            rospy.loginfo( "Speech Recognition mode has been changed, returning")
+
+            # stop audio stream
+            try:
+                self.decoder.end_utt()
+                self.stream.stop_stream()
+                self.stream.close()
+            except:
+                pass
+            return True
+        return False
+
     def getCommand(self, debug=False):
         # Check if we are in debugging mode, either for the getCommand method or for the entire class
         if self.debug or debug:
@@ -96,6 +111,9 @@ class PocketSphinxListener(object):
         # We want this to loop for as long as it takes to get the full sentence from the user. We only exit with a
         # return statement when we have our best guess of what the person said.
         while True:
+            if self.checkIfCanceled():
+                return ""
+
             try:
                 # This takes a small sound bite from the microphone to process.
                 soundBite = self.stream.read(self.bitesize)
@@ -104,6 +122,9 @@ class PocketSphinxListener(object):
 
             # If we've got something from the microphone, we should begin processing it.
             if soundBite:
+                if self.checkIfCanceled():
+                    return ""
+
                 self.decoder.process_raw(soundBite, False, False)
                 inSpeech = self.decoder.get_in_speech()
                 # The following checks for the transition from silence to speech.
@@ -116,12 +137,19 @@ class PocketSphinxListener(object):
                     # We tell PocketSphinx that the user is finished saying what they wanted
                     # to say, and that it should makes it's best guess as to what thay was.
                     self.decoder.end_utt()
+
+                    if self.checkIfCanceled():
+                        return ""
+
                     # The following will get a hypothesis object with, amongst other things,
                     # the string of words that PocketSphinx thinks the user said.
                     self.hypothesis = self.decoder.hyp()
                     if self.hypothesis is not None:
                         bestGuess = self.hypothesis.hypstr
-                        # print 'I just heard you say:"{}"'.format(bestGuess)
+
+                        if self.checkIfCanceled():
+                            return ""
+
                         # We are done with the microphone for now so we'll close the stream.
                         self.stream.stop_stream()
                         self.stream.close()

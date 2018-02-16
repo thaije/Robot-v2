@@ -1,5 +1,5 @@
-# Todo test application:
-- write speechRecognition to parameter
+# Speech recognition setup
+
 
 # Todo 2
 - Servos
