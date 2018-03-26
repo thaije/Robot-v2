@@ -22,6 +22,8 @@ class Servo:
         position = clamp(position, self.minPos, self.maxPos)
         self.position = position
         pi.set_servo_pulsewidth(self.pin, self.position)
+        time.sleep(0.15)
+        pi.set_servo_pulsewidth(self.pin, 0)
 
     def center(self):
         self.setPosition(self.centerPosition)
