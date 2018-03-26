@@ -11,3 +11,4 @@
 
 # camera:
 See https://github.com/UbiquityRobotics/raspicam_node
+https://github.com/fpasteau/raspicam_node

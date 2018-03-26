@@ -27,13 +27,8 @@
 - `source catkin_ws/devel/setup.bash`
 
 ### camera packages
-## Raspberry pi camera package 1
-- https://github.com/UbiquityRobotics/raspicam_node
-- `roscore`
-- `roslaunch raspicam_node camerav2_1280x960.launch` or other launch file
-- `rqt_image_view`
 
-## raspberry pi camera package 2
+## raspberry pi camera package 
 - https://github.com/fpasteau/raspicam_node
 - `roscore`
 - `rosrun raspicam raspicam_node`
