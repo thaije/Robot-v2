@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-
 from pocketsphinx import *
 import pyaudio
 import gevent
+import rospy
 
 
 # Options:
@@ -12,6 +12,9 @@ import gevent
 
 class PocketSphinxListener(object):
     def __init__(self, path, hmm=False, dic=False, lm=False):
+
+        rospy.loginfo( "Initializing CMU Sphinx speech recognizer" )
+
         # defaults
         model_path = get_model_path()
         self.hmm = os.path.join(model_path, 'en-us')
@@ -19,23 +22,23 @@ class PocketSphinxListener(object):
         self.lm = path + 'CMUpocketSphinx/lang_models/limited_lang_model.lm'
 
         if hmm == "small":
-            print "Using small acoustic model"
+            rospy.loginfo( "Using small acoustic model")
             self.hmm = path + 'CMUpocketSphinx/acoustic_models/cmusphinx-en-us-ptm-5.2'
         elif hmm == "cmu":
-            print "Using CMU acoustic model"
+            rospy.loginfo( "Using CMU acoustic model")
             self.hmm = os.path.join(model_path, 'en-us')
 
         if dic == "small":
-            print "Using small dictionary"
+            rospy.loginfo( "Using small dictionary")
             self.dic = path + 'CMUpocketSphinx/dicts/limited_dict.dic'
         else:
-            print "Using small dictionary"
+            rospy.loginfo( "Using small dictionary")
 
         if lm == "small":
-            print "Using small language model"
+            rospy.loginfo( "Using small language model")
             self.lm = path + 'CMUpocketSphinx/lang_models/limited_lang_model.lm'
         else:
-            print "Using small language model"
+            rospy.loginfo( "Using small language model")
 
 
 
@@ -54,7 +57,7 @@ class PocketSphinxListener(object):
         # with an error such as "argument 1 of type 'Decoder *'"
         if not self.debug:
             self.config.set_string('-logfn', '/dev/null')
-            
+
     	# Alan force log
     	self.config.set_string('-verbose', 'no')
      # 	self.config.set_string('-logfn', 'psphinx.log')
@@ -64,6 +67,22 @@ class PocketSphinxListener(object):
         self.decoder = Decoder(self.config)
 
         self.pyAudio = pyaudio.PyAudio()
+
+    # check if the mode of Speech Recognition was changed (e.g. disabled),
+    # and stop processing if so
+    def checkIfCanceled(self):
+        if rospy.get_param('/speech/speechRecognitionMode') != 1:
+            rospy.loginfo( "Speech Recognition mode has been changed, returning")
+
+            # stop audio stream
+            try:
+                self.decoder.end_utt()
+                self.stream.stop_stream()
+                self.stream.close()
+            except:
+                pass
+            return True
+        return False
 
     def getCommand(self, debug=False):
         # Check if we are in debugging mode, either for the getCommand method or for the entire class
@@ -78,7 +97,8 @@ class PocketSphinxListener(object):
                                        frames_per_buffer=self.bitesize)
 
         # Let the use know that we're ready for them to speak
-        print 'Need more input: '
+        rospy.loginfo( "STT waiting for more input: ")
+        # print "Need more input"
 
         # This is a flag that we'll use in a bit to determine whether we are going from silence to speech
         # or from speech to silence.
@@ -91,6 +111,9 @@ class PocketSphinxListener(object):
         # We want this to loop for as long as it takes to get the full sentence from the user. We only exit with a
         # return statement when we have our best guess of what the person said.
         while True:
+            if self.checkIfCanceled():
+                return ""
+
             try:
                 # This takes a small sound bite from the microphone to process.
                 soundBite = self.stream.read(self.bitesize)
@@ -99,6 +122,9 @@ class PocketSphinxListener(object):
 
             # If we've got something from the microphone, we should begin processing it.
             if soundBite:
+                if self.checkIfCanceled():
+                    return ""
+
                 self.decoder.process_raw(soundBite, False, False)
                 inSpeech = self.decoder.get_in_speech()
                 # The following checks for the transition from silence to speech.
@@ -111,12 +137,19 @@ class PocketSphinxListener(object):
                     # We tell PocketSphinx that the user is finished saying what they wanted
                     # to say, and that it should makes it's best guess as to what thay was.
                     self.decoder.end_utt()
+
+                    if self.checkIfCanceled():
+                        return ""
+
                     # The following will get a hypothesis object with, amongst other things,
                     # the string of words that PocketSphinx thinks the user said.
                     self.hypothesis = self.decoder.hyp()
                     if self.hypothesis is not None:
                         bestGuess = self.hypothesis.hypstr
-                        print 'I just heard you say:"{}"'.format(bestGuess)
+
+                        if self.checkIfCanceled():
+                            return ""
+
                         # We are done with the microphone for now so we'll close the stream.
                         self.stream.stop_stream()
                         self.stream.close()

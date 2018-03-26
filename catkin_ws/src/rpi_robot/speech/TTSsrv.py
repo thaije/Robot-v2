@@ -2,11 +2,19 @@
 import rospy
 from rpi_robot.srv import *
 import speechSynths
+from time import sleep
+
 
 
 def handleTTS(req):
     speechsynth = req.speechsynth
     response = True
+
+    rospy.loginfo( "New speech command: \"" + req.text + "\"")
+    rospy.loginfo( "Using speechsynth: " + speechsynth)
+
+    # Announce that we are going to speak to the rest of the system, and block STT
+    rospy.set_param('/speech/robotSpeaking', True)
 
     # Speak the text with the requested speechsynth if it exists
     if speechsynth == "espeak":
@@ -17,6 +25,10 @@ def handleTTS(req):
         speechSynths.flite(req.text)
     else:
         response = False
+    rospy.loginfo( "Done speaking" )
+
+    # we are done speaking, reset system variable
+    rospy.set_param('/speech/robotSpeaking', False)
 
     # update latest spoken speech to dialogue log
     dialogueLog = rospy.get_param("/speech/dialogueLog", [])
@@ -25,17 +37,17 @@ def handleTTS(req):
 
     # Return a True response, or an error if the speechsynth didn't exist
     if response:
-        print "Returning 'True' for speaking: %s. With speech synth: %s" % (req.text, speechsynth)
+        rospy.loginfo( "Speech synthesis exiting \n" )
         return TTSResponse("True")
 
-    print "Returning 'Error, speechsynth does not exist' for speaking: %s. With speech synth: %s" % (req.text, speechsynth)
-    return TTSResponse("Error, speechsynth " + speechsynth + " does not exist")
+    rospy.loginfo( "Error in speechsynthesis, synth does not exist? ")
+    return TTSResponse("Error, speechsynth \"" + speechsynth + "\" does not exist")
 
 
 def TTSserver():
     rospy.init_node('TTS_request_server')
     s = rospy.Service('TextToSpeech', TTS, handleTTS)
-    print "Ready to convert text to speech."
+    rospy.loginfo( "TTS Server ready to convert text to speech." )
     rospy.spin()
 
 
