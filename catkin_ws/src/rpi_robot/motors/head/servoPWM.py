@@ -31,6 +31,9 @@ class Servo:
     def stop(self):
         pi.set_servo_pulsewidth(self.pin, 0)
 
+    def getPosition(self):
+        return self.position
+
 
 
 #############################################################

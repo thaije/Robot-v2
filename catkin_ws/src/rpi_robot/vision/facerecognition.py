@@ -9,6 +9,8 @@ import rospy
 
 # Ros Messages
 from sensor_msgs.msg import CompressedImage
+from std_msgs.msg import Float32
+
 
 # how to run:
 # on rpi:
@@ -118,14 +120,14 @@ def centerOnFace(midX, midY, width, height):
     offset = 0.1
 
     if midX > width * (0.5 + offset):
-        hor_servo.pub(-100)
+        hor_servo.publish(-100)
     elif midX < width * (0.5 - offset):
-        hor_servo.pub(100)
+        hor_servo.publish(100)
 
     if midY > height * (0.5 + offset):
-        ver_servo.pub(-100)
+        ver_servo.publish(-100)
     elif midY < height * (0.5 - offset):
-        ver_servo.pub(100)
+        ver_servo.publish(100)
 
 
 def main(args):
@@ -142,7 +144,6 @@ def main(args):
     except KeyboardInterrupt:
         print "Shutting down ROS Image feature detector module"
     cv2.destroyAllWindows()
-    head.cleanup_servos(servos)
 
 if __name__ == '__main__':
     main(sys.argv)
