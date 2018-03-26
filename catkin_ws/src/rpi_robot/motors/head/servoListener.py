@@ -17,7 +17,7 @@ def cleanup():
 def verticalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' vertical servo pos %d', pos.data)
     pos = servoControl[0].position
-	servoControl[0].setPosition(pos + pos.data)
+    servoControl[0].setPosition(pos + pos.data)
 
 
 def horizontalServo(pos):
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     try:
         listener()
     except KeyboardInterrupt:
-	       print "interrupted by user"
+        print "interrupted by user"
     finally:
     	print "cleaning up"
     	cleanup()
