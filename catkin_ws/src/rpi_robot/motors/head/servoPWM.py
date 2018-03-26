@@ -86,4 +86,4 @@ def test_servos_allin():
     test_servos_external(servos)
     cleanup_servos(servos)
 
-test_servos_allin()
+#test_servos_allin()
