@@ -1,5 +1,7 @@
-# Speech recognition setup
-
+# Todo
+- Couple speech recognition to head movement
+- Couple speech recognition to wheel movement
+- Couple speech to speakers / play music over speakers
 
 # Todo 2
 - Servos
@@ -61,7 +63,7 @@
 
 
 - http://wiki.ros.org/ROS/NetworkSetup
-- http://wiki.ros.org/ROS/Tutorials/MultipleMachinese
+- http://wiki.ros.org/ROS/Tutorials/MultipleMachines
 ```
 rpi:
 ip: 192.168.178.68

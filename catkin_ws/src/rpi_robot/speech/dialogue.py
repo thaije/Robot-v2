@@ -4,12 +4,15 @@ import rospy
 from time import sleep
 from rpi_robot.srv import *
 from std_msgs.msg import String
+from geometry_msgs.msg import Twist
+
 
 # use default synth defined in launch file
 synthType = rospy.get_param("/speech/TTSdef")
-
+pub = False
 
 # Text to speech client
+# TODO: move this to TTS folder and import
 def TTSclient(text, speechsynth):
     rospy.wait_for_service('TextToSpeech')
     try:
@@ -37,16 +40,33 @@ def execute(command):
 
     if command == "turn left":
         TTSclient("Turning left", synthType)
+		twist = Twist()
+		twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
+		twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = -1.0
+		pub.publish(twist)
+
     elif command == "turn right":
         TTSclient("Turning right", synthType)
+		twist = Twist()
+		twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0;
+		twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 1.0
+		pub.publish(twist)
+
+
+
+def init():
+    rospy.init_node('dialogue', anonymous=True)
+
+    global pub
+    pub = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
+
+    # initialize dialogue log to an empty list
+    rospy.set_param('/speech/dialogueLog', [])
+
 
 
 # listen to recognized speech
 def main():
-    rospy.init_node('dialogue', anonymous=True)
-
-    # initialize dialogue log to an empty list
-    rospy.set_param('/speech/dialogueLog', [])
     TTSclient("Hello, human", synthType)
 
     while not rospy.is_shutdown():
@@ -89,6 +109,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        init()
         main()
     except rospy.ROSInterruptException:
         pass
