@@ -12,7 +12,7 @@ def setup():
     servos = servoControl.initialize_default_servos()
 
 def cleanup():
-    motorControl.cleanup_servos(servos)
+    servoControl.cleanup_servos(servos)
 
 def verticalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' vertical servo pos %d', pos.data)
