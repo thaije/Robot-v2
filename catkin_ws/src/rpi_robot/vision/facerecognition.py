@@ -23,9 +23,11 @@ from std_msgs.msg import Float32
 # rosrun rpi_robot facerecognition.py
 
 
-
-resX = 640
-resY = 480
+# how much servoticks do you need to move for the image to move 1%
+servoticks_per_img_perc = 10
+# defines the middle of the screen where correction isn't needed, in percentage of image
+# is used for up, right, down and left
+face_offset = 0.1
 
 face_cascade = cv2.CascadeClassifier('opencv_files/haarcascade_frontalface_default.xml')
 face_alt_cascade = cv2.CascadeClassifier('opencv_files/haarcascade_frontalface_alt.xml')
@@ -57,6 +59,7 @@ class image_feature:
         np_arr = np.fromstring(ros_data.data, np.uint8)
         img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
         img = cv2.flip( img, 0 )
+        img = cv2.flip( img, 1 )
         height, width, channels = img.shape
 
         # cv2.imshow('cv_img', img)
@@ -113,21 +116,39 @@ class image_feature:
         cv2.waitKey(2)
 
 
-# center on middle 20%
+# Center the face in the image, with the servo change relative to the
+# distance of the center
 def centerOnFace(midX, midY, width, height):
     global ver_servo, hor_servo
+    err = 0
 
-    offset = 0.1
+    if midX < ( width * (0.5 - face_offset) ) or midX > ( width * (0.5 + face_offset) ):
+        if midX > width * (0.5 + face_offset): # is right
+            err = midX - ( width * (0.5 + face_offset) )
+            # print "right"
+        else: # is left
+            err = midX - ( width * (0.5 - face_offset) )
+        #     print "left"
+        # print "\nwidth offset:", err
+        err_percentage = (err / float(width)) * 100
+        # print err_percentage
+        adj = err_percentage * servoticks_per_img_perc
+        # print "adj:", adj
+        hor_servo.publish(adj)
 
-    if midX > width * (0.5 + offset):
-        hor_servo.publish(-100)
-    elif midX < width * (0.5 - offset):
-        hor_servo.publish(100)
-
-    if midY > height * (0.5 + offset):
-        ver_servo.publish(-100)
-    elif midY < height * (0.5 - offset):
-        ver_servo.publish(100)
+    if midY < ( height * (0.5 - face_offset) ) or midY > ( height * (0.5 + face_offset) ):
+        if midY > height * (0.5 + face_offset): # is down
+            err = midY - ( width * (0.5 + face_offset) )
+            # print "down"
+        else: # is up
+            err = midY - ( width * (0.5 - face_offset) )
+            # print "up"
+        # print "\nheight offset:", err
+        err_percentage = (err / float(width)) * 100
+        # print err_percentage
+        adj = err_percentage * servoticks_per_img_perc
+        # print "adj:", adj
+        ver_servo.publish(adj)
 
 
 def main(args):
@@ -136,8 +157,8 @@ def main(args):
     rospy.init_node('face_detection', anonymous=True)
 
     global ver_servo, hor_servo
-    ver_servo = rospy.Publisher('ver_servo', Float32, queue_size=10)
-    hor_servo = rospy.Publisher('hor_servo', Float32, queue_size=10)
+    ver_servo = rospy.Publisher('ver_servo', Float32, queue_size=1)
+    hor_servo = rospy.Publisher('hor_servo', Float32, queue_size=1)
 
     try:
         rospy.spin()
