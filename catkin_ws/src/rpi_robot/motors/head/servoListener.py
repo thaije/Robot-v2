@@ -18,7 +18,7 @@ def verticalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' vertical servo pos %d', pos.data)
 
     oldPos = servos[0].getPosition()
-    newPos = oldPos + pos
+    newPos = oldPos + pos.data
     # delta = abs(newPos - oldPos)
 
     servos[0].setPosition(newPos)
@@ -30,7 +30,7 @@ def horizontalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' horizontal servo pos %d', pos.data)
 
     oldPos = servos[1].getPosition()
-    newPos = oldPos + pos
+    newPos = oldPos + pos.data
     # delta = abs(newPos - oldPos)
 
     servos[1].setPosition(newPos)
