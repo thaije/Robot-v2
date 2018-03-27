@@ -15,7 +15,7 @@ from std_msgs.msg import Float32
 # how to run:
 # on rpi:
 # roscore
-# rosrun raspicam raspicam_node
+# rosrun raspicam raspicam_node _framerate:=2
 # rosservice call /camera/start_capture
 # rosrun rpi_robot servoListener.py
 
