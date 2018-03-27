@@ -16,7 +16,7 @@ class Servo:
         self.centerPosition = centerPosition
         self.setPosition(self.centerPosition)
         # sleep 0.15s for every 100 ticks movement
-        self.secs_per_100 = 0.15
+        self.secs_per_100 = 0.1
 
     # set the position of the servo
     def setPosition(self, position):

@@ -124,30 +124,25 @@ def centerOnFace(midX, midY, width, height):
 
     if midX < ( width * (0.5 - face_offset) ) or midX > ( width * (0.5 + face_offset) ):
         if midX > width * (0.5 + face_offset): # is right
-            err = midX - ( width * (0.5 + face_offset) )
-            # print "right"
+            err = ( width * (0.5 + face_offset) ) - midX
+            print "right", err
         else: # is left
-            err = midX - ( width * (0.5 - face_offset) )
-        #     print "left"
-        # print "\nwidth offset:", err
-        err_percentage = (err / float(width)) * 100
-        # print err_percentage
+            err = ( width * (0.5 - face_offset) ) - midX
+            print "left", err
+        err_percentage = (-err / float(width)) * 100
+        print err_percentage
         adj = err_percentage * servoticks_per_img_perc
-        # print "adj:", adj
         hor_servo.publish(adj)
 
     if midY < ( height * (0.5 - face_offset) ) or midY > ( height * (0.5 + face_offset) ):
         if midY > height * (0.5 + face_offset): # is down
-            err = midY - ( width * (0.5 + face_offset) )
-            # print "down"
+            err = ( height * (0.5 + face_offset) ) - midY
+            print "down", err
         else: # is up
-            err = midY - ( width * (0.5 - face_offset) )
-            # print "up"
-        # print "\nheight offset:", err
+            err = ( height * (0.5 - face_offset) ) - midY
+            print "up", err
         err_percentage = (err / float(width)) * 100
-        # print err_percentage
         adj = err_percentage * servoticks_per_img_perc
-        # print "adj:", adj
         ver_servo.publish(adj)
 
 
