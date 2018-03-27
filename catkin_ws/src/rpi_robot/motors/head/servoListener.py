@@ -16,14 +16,14 @@ def cleanup():
 
 def verticalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' vertical servo pos %d', pos.data)
-    pos = servos[0].getPosition()
-    servos[0].setPosition(pos + pos.data)
+    oldPos = servos[0].getPosition()
+    servos[0].setPosition(oldPos + pos.data)
 
 
 def horizontalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' horizontal servo pos %d', pos.data)
-    pos = servos[1].getPosition()
-    servos[1].setPosition(pos + pos.data)
+    oldPos = servos[1].getPosition()
+    servos[1].setPosition(oldPos + pos.data)
 
 
 def listener():
