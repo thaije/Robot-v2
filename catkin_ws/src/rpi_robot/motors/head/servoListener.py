@@ -38,8 +38,8 @@ def horizontalServo(pos):
 
 def listener():
     rospy.init_node('servoListener', anonymous=True)
-    rospy.Subscriber('ver_servo', Float32, verticalServo)
-    rospy.Subscriber('hor_servo', Float32, horizontalServo)
+    rospy.Subscriber('ver_servo', Float32, verticalServo, queue_size=1)
+    rospy.Subscriber('hor_servo', Float32, horizontalServo, queue_size=1)
     rospy.spin()
 
 
