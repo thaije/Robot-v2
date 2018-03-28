@@ -1,20 +1,5 @@
-# Todo
-- Couple speech recognition to head movement
-- Couple speech recognition to wheel movement
-- Couple speech to speakers / play music over speakers
-
-# Todo 2
-- Servos
-    - servo control with pigpio
-    - service
-    - publisher
-- Speech recognition
-    - Create small dict / lm
-    - send audio to PC and do full dictionary speech processing
-- Dialogue system
 
 # ROS:
-
 ## How to ROS
 - Topic: node publishes messages, node subscribed to a topic can receive these messages
 - Services: A client node sends a request (what is 2+1?) to a Service node, the service node sends a response(2+1=3) back to the client
@@ -28,7 +13,7 @@
 
 ### camera packages
 
-## raspberry pi camera package 
+## raspberry pi camera package
 - https://github.com/fpasteau/raspicam_node
 - `roscore`
 - `rosrun raspicam raspicam_node`

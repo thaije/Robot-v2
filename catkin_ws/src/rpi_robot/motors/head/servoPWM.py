@@ -9,9 +9,9 @@ class Servo:
     def __init__(self, pin, minPos, maxPos, centerPosition):
         """ Initialize the motor with its pins, min, max and
         center positions"""
-	# sleep 0.15s for every 100 ticks movement
-	self.secs_per_100 = 0.15
-	self.position = 0
+    	# sleep 0.15s for every 100 ticks movement
+    	self.secs_per_100 = 0.15
+    	self.position = 0
         self.pin = pin
         self.minPos = minPos
         self.maxPos = maxPos
