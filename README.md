@@ -9,7 +9,7 @@
 - Startup rpi
 - Switch speaker to usb only mode after speaker startup
 - Show usb devices: `lsusb` or `dmesg`
-- Make sure no erros
+- Make sure no errors
 - Select audio speaker and mic with GUI
 
 ## Play / record audio:

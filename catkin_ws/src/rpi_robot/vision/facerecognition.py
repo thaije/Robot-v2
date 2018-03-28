@@ -24,10 +24,12 @@ from std_msgs.msg import Float32
 
 
 # how much servoticks do you need to move for the image to move 1%
-servoticks_per_img_perc = 10
+servoticks_per_img_perc = 7
 # defines the middle of the screen where correction isn't needed, in percentage of image
 # is used for up, right, down and left
 face_offset = 0.1
+# defines how long to block image processing after servo movement
+secs_per_percentage = 0.15
 
 face_cascade = cv2.CascadeClassifier('opencv_files/haarcascade_frontalface_default.xml')
 face_alt_cascade = cv2.CascadeClassifier('opencv_files/haarcascade_frontalface_alt.xml')
@@ -39,6 +41,7 @@ right_eye_cascade = cv2.CascadeClassifier('opencv_files/haarcascade_righteye_2sp
 
 ver_servo = False
 hor_servo = False
+blockedImageProcessing = False
 
 class image_feature:
 
@@ -54,6 +57,8 @@ class image_feature:
         '''Callback function of subscribed topic.
         Here images get converted and features detected'''
 
+        if blockedImageProcessing:
+            return
 
         #### direct conversion to CV2 ####
         np_arr = np.fromstring(ros_data.data, np.uint8)
@@ -116,12 +121,19 @@ class image_feature:
         cv2.waitKey(2)
 
 
+def unblockImageProcessing():
+    global blockedImageProcessing
+    blockedImageProcessing = False
+
+
 # Center the face in the image, with the servo change relative to the
 # distance of the center
 def centerOnFace(midX, midY, width, height):
     global ver_servo, hor_servo
     err = 0
+    pause = 0
 
+    # check if we need to move horizontally
     if midX < ( width * (0.5 - face_offset) ) or midX > ( width * (0.5 + face_offset) ):
         if midX > width * (0.5 + face_offset): # is right
             err = ( width * (0.5 + face_offset) ) - midX
@@ -132,8 +144,11 @@ def centerOnFace(midX, midY, width, height):
         err_percentage = (-err / float(width)) * 100
         print err_percentage
         adj = err_percentage * servoticks_per_img_perc
+        print adj
         hor_servo.publish(adj)
+    pause = err
 
+    # check if we need to move vertically
     if midY < ( height * (0.5 - face_offset) ) or midY > ( height * (0.5 + face_offset) ):
         if midY > height * (0.5 + face_offset): # is down
             err = ( height * (0.5 + face_offset) ) - midY
@@ -143,11 +158,23 @@ def centerOnFace(midX, midY, width, height):
             print "up", err
         err_percentage = (err / float(width)) * 100
         adj = err_percentage * servoticks_per_img_perc
+        print adj
         ver_servo.publish(adj)
+
+    # track the largest servo movement
+    if err > pause:
+        pause = err
+
+    # If the head was moved, block following image processing for a certain period
+    if pause > 0:
+        global blockedImageProcessing
+        blockedImageProcessing = True
+        # block image processing based based on the largest servo movement done
+        rospy.Timer(rospy.Duration(secs_per_percentage * pause), unblockImageProcessing, oneshot=True)
 
 
 def main(args):
-    '''Initializes and cleanup ros node'''
+    '''Initializes servos, opencv and ros node'''
     ic = image_feature()
     rospy.init_node('face_detection', anonymous=True)
 
