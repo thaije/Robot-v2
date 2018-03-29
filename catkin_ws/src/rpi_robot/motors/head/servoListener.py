@@ -19,10 +19,10 @@ def verticalServo(pos):
 
     oldPos = servos[0].getPosition()
     newPos = oldPos + pos.data
-    # delta = abs(newPos - oldPos)
+    delta = abs(newPos - oldPos)
 
     servos[0].setPosition(newPos)
-    time.sleep(delta * 0.15)
+#    time.sleep(delta * 0.15)
 
 
 
@@ -31,10 +31,10 @@ def horizontalServo(pos):
 
     oldPos = servos[1].getPosition()
     newPos = oldPos + pos.data
-    # delta = abs(newPos - oldPos)
+    delta = abs(newPos - oldPos)
 
     servos[1].setPosition(newPos)
-    # time.sleep(delta * 0.15)
+#    time.sleep(delta * 0.15)
 
 def listener():
     rospy.init_node('servoListener', anonymous=True)
