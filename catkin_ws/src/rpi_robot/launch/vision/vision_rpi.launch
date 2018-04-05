@@ -1,9 +1,10 @@
 <launch>
-    <group ns="vision">
+   <!-- <group ns="vision"> -->
         <arg name="_framerate" default="2"/>
-        <node name="dialogue" pkg="raspicam" type="raspicam_node" args="$(arg _framerate)" />
+        <node name="raspicam" pkg="raspicam" type="raspicam_node" args="$(arg _framerate)" output="screen"/>
 
         <!-- quick fix: wait for x seconds before starting the image capturing -->
-        <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="2 rpi_robot vision_delayed_rpi.launch" name="timed_roslaunch" output="screen" />
-    </group>
+        <!-- <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="2 rpi_robot vision_delayed_rpi.launch" name="timed_roslaunch" output="screen" /> -->
+	<node pkg="rosservice" type="rosservice" name="global_loc" args="call --wait /camera/start_capture" output="screen"/>
+   <!-- </group>-->
 </launch>
