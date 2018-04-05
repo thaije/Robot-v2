@@ -1,0 +1,7 @@
+<launch>
+    <group ns="vision">
+        <arg name="_framerate" default="2"/>
+        <node name="dialogue" pkg="raspicam" type="raspicam_node.py" args="$(arg _framerate)" />
+        <node pkg="rosservice" type="rosservice" name="global_loc" args="call /camera/start_capture"/>
+    </group>
+</launch>

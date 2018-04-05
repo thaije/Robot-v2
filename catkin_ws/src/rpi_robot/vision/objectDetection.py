@@ -46,12 +46,34 @@ class image_feature:
 
         # check for faces, and track
         faces = faceD.faceDetection(img, draw=True)
-        print faces
-        # if faces:
-        #     # track face
-        #     [midX, midY] = faceD.getCenterCoords(faceID=0)
+        if faces != ():
+            print "Found face"
+            # track face
+            # [midX, midY] = faceD.getCenterCoords(faceID=0)
 
 
         # Display the resulting img
         cv2.imshow('img',img)
         cv2.waitKey(2)
+
+
+def main(args):
+    # '''Initializes servos, opencv and ros node'''
+    # global ver_servo, hor_servo, wheels
+    # ver_servo = rospy.Publisher('ver_servo', Float32, queue_size=1)
+    # hor_servo = rospy.Publisher('hor_servo', Float32, queue_size=1)
+    #
+    # print "starting up publishers.."
+    # time.sleep(1)
+
+    ic = image_feature()
+    rospy.init_node('object_detection', anonymous=True)
+
+    try:
+        rospy.spin()
+    except KeyboardInterrupt:
+        print "Shutting down ROS Image object detector module"
+    cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    main(sys.argv)
