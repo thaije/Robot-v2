@@ -8,10 +8,8 @@ import sys, time
 # Test the servo listener by publishing servo commands quickly after eachother
 
 
-
 ver_servo = False
 hor_servo = False
-
 
 def main():
     rospy.init_node('servo_test', anonymous=True)

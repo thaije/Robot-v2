@@ -1,5 +1,8 @@
 # Teleoperation
 
+- `catkin_make`
+- `chmod +x file.py`
+
 ## Method 1: differential_drive + teleop_twist_keyboard
 - Install ROS teleop_twist_keyboard
 - git clone ROS differential_drive package

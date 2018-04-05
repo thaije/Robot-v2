@@ -6,6 +6,7 @@ import servoPWM as servoControl
 import time
 
 servos = False
+wheels = False
 
 def setup():
     global servos
@@ -17,29 +18,55 @@ def cleanup():
 def verticalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' vertical servo pos %d', pos.data)
 
+    (minPos, maxPos) = servos[0].getMinMax()
     oldPos = servos[0].getPosition()
     newPos = oldPos + pos.data
-    delta = abs(newPos - oldPos)
 
+    if newPos > minPos:
+        print ("Go back")
+    elif newPos > maxPos:
+        print ("Go back")
     servos[0].setPosition(newPos)
-#    time.sleep(delta * 0.15)
 
 
 
 def horizontalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' horizontal servo pos %d', pos.data)
 
+    (minPos, maxPos) - servos[1].getMinMax()
     oldPos = servos[1].getPosition()
     newPos = oldPos + pos.data
-    delta = abs(newPos - oldPos)
 
+    if newPos < minPos:
+        # go left
+        twist = createTwist(80, -80)
+        wheels.publish(twist)
+        print ("Go left")
+
+    elif newPos > maxPos:
+        # go right
+        twist = createTwist(-80, 80)
+        wheels.publish(twist)
+        print ("Go right")
     servos[1].setPosition(newPos)
-#    time.sleep(delta * 0.15)
+
+def createTwist(left, right):
+    twist = Twist()
+    twist.linear.x = x*speed; twist.linear.y = y*speed; twist.linear.z = z*speed;
+	twist.angular.x = 0
+    twist.angular.y = 0
+    twist.angular.z = th*turn
+    return twist
+
 
 def listener():
+    global wheels
+
     rospy.init_node('servoListener', anonymous=True)
     rospy.Subscriber('ver_servo', Float32, verticalServo, queue_size=1)
     rospy.Subscriber('hor_servo', Float32, horizontalServo, queue_size=1)
+    wheels = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
+
     rospy.spin()
 
 
