@@ -43,6 +43,9 @@ class Servo:
     def getPosition(self):
         return self.position
 
+    def getMinMax(self):
+        return (self.minPos, self.maxPos)
+
 
 
 #############################################################

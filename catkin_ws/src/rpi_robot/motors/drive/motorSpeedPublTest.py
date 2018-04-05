@@ -14,15 +14,16 @@ def talker():
         print "Forward"
         pub_l.publish(100.0)
         pub_r.publish(100.0)
-	time.sleep(1)
+        time.sleep(1)
 
         print "Backward"
         pub_l.publish(-70.0)
-	pub_r.publish(-70.0)
+        pub_r.publish(-70.0)
         time.sleep(1)
 
         pub_l.publish(0.0)
-	pub_r.publish(0.0)
+        pub_r.publish(0.0)
+
         print "Done"
         break
 

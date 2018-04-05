@@ -1,0 +1,11 @@
+<launch>
+    <group ns="vision">
+        <!-- Settings, can be customized -->
+
+        <!-- 0 = stagnant, 1 = passive, 2 = active -->
+        <param name="trackingMode" value="0" type="int" />
+
+        <node name="dialogue" pkg="rpi_robot" type="dialogue.py" />
+
+    </group>
+</launch>
