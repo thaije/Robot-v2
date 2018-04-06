@@ -11,8 +11,11 @@ from geometry_msgs.msg import Twist
 from std_msgs.msg import Float32
 
 # other functions
-from tracking import *
+import tracking as track
 import faceDetection as faceD
+
+ver_servo = False
+hor_servo = False
 
 # how to run:
 # on rpi:
@@ -49,8 +52,8 @@ class image_feature:
         if faces != ():
             print "Found face"
             # track face
-            # [midX, midY] = faceD.getCenterCoords(faceID=0)
-
+            [midX, midY] = faceD.getCenterCoords(faceID=0)
+            # tracking.centerOnObject(midX, midY, width, height, ver_servo, hor_servo)
 
         # Display the resulting img
         cv2.imshow('img',img)
