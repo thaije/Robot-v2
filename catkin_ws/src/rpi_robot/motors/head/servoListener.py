@@ -25,7 +25,7 @@ def verticalServo(pos):
     newPos = oldPos + pos.data
     servos[0].setPosition(newPos)
 
-    trackingMode = rospy.get_param("/speech/trackingMode")
+    trackingMode = rospy.get_param("/vision/trackingMode")
     # if tracking mode is passive or active, move wheels when servo is at max pos
     if trackingMode > 0:
         if newPos > maxPos:
@@ -44,7 +44,7 @@ def horizontalServo(pos):
     servos[1].setPosition(newPos)
 
 
-    trackingMode = rospy.get_param("/speech/trackingMode")
+    trackingMode = rospy.get_param("/vision/trackingMode")
     # if tracking mode is passive or active, move wheels when servo is at max pos
     if trackingMode > 0:
         if newPos < minPos:
@@ -61,7 +61,7 @@ def horizontalServo(pos):
 def createTwist(left, right):
     twist = Twist()
     twist.linear.x = x*speed; twist.linear.y = y*speed; twist.linear.z = z*speed;
-	twist.angular.x = 0
+    twist.angular.x = 0
     twist.angular.y = 0
     twist.angular.z = th*turn
     return twist

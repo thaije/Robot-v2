@@ -1,7 +1,7 @@
 <launch>
     <arg name="_framerate" default="2"/>
-    <node name="raspicam" pkg="raspicam" type="raspicam_node" args="$(arg _framerate)" output="screen"/>
-	<node pkg="rosservice" type="rosservice" name="global_loc" args="call --wait /camera/start_capture" output="screen"/>
-    <node name="servoListener" pkg="rpi_robot" type="servoListener" />
-    <node name="motorListener" pkg="rpi_robot" type="motorListener" />
+    <node name="raspicam" pkg="raspicam" type="raspicam_node" args="_framerate:=$(arg _framerate)" output="screen"/>
+    <node pkg="rosservice" type="rosservice" name="global_loc" args="call --wait /camera/start_capture" output="screen"/>
+    <node name="servoListener" pkg="rpi_robot" type="servoListener.py" />
+    <node name="motorListener" pkg="rpi_robot" type="motorListener.py" />
 </launch>
