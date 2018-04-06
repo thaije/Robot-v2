@@ -18,16 +18,15 @@ servoticks_per_img_perc = 6
 # is used for up, right, down and left
 face_offset = 0.1
 # defines how long to block image processing after servo movement, usefull for higher framerates
-secs_per_100 = 0.01
+# secs_per_100 = 0.01
 
 # Center the object in the image, with the servo change relative to the
 # distance of the center
 def centerOnObject(midX, midY, width, height, ver_servo, hor_servo):
-
-    trackingMode = rospy.get_param("/speech/trackingMode")
+    # trackingMode = rospy.get_param("/speech/trackingMode")
 
     err = 0
-    movedTicks = 0
+    # movedTicks = 0
 
     right = midX > ( width * (0.5 + face_offset) )
     left = midX < ( width * (0.5 - face_offset) )

@@ -30,7 +30,6 @@ class Servo:
 
         # give the servo some time to move to the target pos
         wait_time = (self.secs_per_100 / 100) * delta
-        print wait_time
         time.sleep(wait_time)
         pi.set_servo_pulsewidth(self.pin, 0)
 
@@ -45,6 +44,8 @@ class Servo:
 
     def getMinMax(self):
         return (self.minPos, self.maxPos)
+
+
 
 
 

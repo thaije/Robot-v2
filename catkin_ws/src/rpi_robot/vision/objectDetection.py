@@ -19,28 +19,25 @@ hor_servo = False
 
 # how to run:
 # on rpi:
-# roscore
-# rosrun raspicam raspicam_node _framerate:=2
-# rosservice call /camera/start_capture
+# roslaunch rpi_robot vision_rpi.launch
 
 # on pc:
-# rosrun rpi_robot objectDetection.py
+# roslaunch rpi_robot vision_pc.launch
 
 
 class image_feature:
     def __init__(self):
-        '''Initialize ros subscriber'''
-        # subscribed Topic
+        # Initialize ros subscriber
         self.subscriber = rospy.Subscriber("/camera/image/compressed",
             CompressedImage, self.callback,  queue_size = 1)
-        print "subscribed to /camera/image/compressed"
+        rospy.loginfo("Subscribed to /camera/image/compressed")
 
 
     def callback(self, ros_data):
         '''Callback function of subscribed topic.
         Here images get converted and features detected'''
 
-        #### direct conversion to CV2 ####
+        # convert input stream to OpenCV image
         np_arr = np.fromstring(ros_data.data, np.uint8)
         img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
         img = cv2.flip( img, 0 )
@@ -53,7 +50,7 @@ class image_feature:
             print "Found face"
             # track face
             [midX, midY] = faceD.getCenterCoords(faceID=0)
-            # tracking.centerOnObject(midX, midY, width, height, ver_servo, hor_servo)
+            tracking.centerOnObject(midX, midY, width, height, ver_servo, hor_servo)
 
         # Display the resulting img
         cv2.imshow('img',img)
@@ -61,14 +58,15 @@ class image_feature:
 
 
 def main(args):
-    # '''Initializes servos, opencv and ros node'''
-    # global ver_servo, hor_servo, wheels
-    # ver_servo = rospy.Publisher('ver_servo', Float32, queue_size=1)
-    # hor_servo = rospy.Publisher('hor_servo', Float32, queue_size=1)
-    #
-    # print "starting up publishers.."
-    # time.sleep(1)
+    # Initialize servos
+    global ver_servo, hor_servo
+    ver_servo = rospy.Publisher('ver_servo', Float32, queue_size=1)
+    hor_servo = rospy.Publisher('hor_servo', Float32, queue_size=1)
 
+    rospy.loginfo("Starting up servo publishers..")
+    time.sleep(1)
+
+    # start up image processing
     ic = image_feature()
     rospy.init_node('object_detection', anonymous=True)
 

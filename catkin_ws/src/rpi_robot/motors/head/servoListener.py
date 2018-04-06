@@ -2,6 +2,7 @@
 
 import rospy
 from std_msgs.msg import Float32
+from geometry_msgs.msg import Twist
 import servoPWM as servoControl
 import time
 
@@ -18,37 +19,44 @@ def cleanup():
 def verticalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' vertical servo pos %d', pos.data)
 
+    # calc new servo position
     (minPos, maxPos) = servos[0].getMinMax()
     oldPos = servos[0].getPosition()
     newPos = oldPos + pos.data
-
-    if newPos > minPos:
-        print ("Go back")
-    elif newPos > maxPos:
-        print ("Go back")
     servos[0].setPosition(newPos)
+
+    trackingMode = rospy.get_param("/speech/trackingMode")
+    # if tracking mode is passive or active, move wheels when servo is at max pos
+    if trackingMode > 0:
+        if newPos > maxPos:
+            rospy.loginfo("Move wheels till robot has turned 180 degrees")
+            # twist = createTwist(80, -80)
 
 
 
 def horizontalServo(pos):
     rospy.loginfo(rospy.get_caller_id() + ' horizontal servo pos %d', pos.data)
 
-    (minPos, maxPos) - servos[1].getMinMax()
+    # calc and set new servo position
+    (minPos, maxPos) = servos[1].getMinMax()
     oldPos = servos[1].getPosition()
     newPos = oldPos + pos.data
-
-    if newPos < minPos:
-        # go left
-        twist = createTwist(80, -80)
-        wheels.publish(twist)
-        print ("Go left")
-
-    elif newPos > maxPos:
-        # go right
-        twist = createTwist(-80, 80)
-        wheels.publish(twist)
-        print ("Go right")
     servos[1].setPosition(newPos)
+
+
+    trackingMode = rospy.get_param("/speech/trackingMode")
+    # if tracking mode is passive or active, move wheels when servo is at max pos
+    if trackingMode > 0:
+        if newPos < minPos:
+            delta = minPos - newPos
+            rospy.loginfo("Move wheels left")
+            # twist = createTwist(80, -80)
+
+        elif newPos > maxPos:
+            delta = newPos - maxPos
+            rospy.loginfo("Move wheels right")
+            # twist = createTwist(-80, 80)
+
 
 def createTwist(left, right):
     twist = Twist()
