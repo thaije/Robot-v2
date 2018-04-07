@@ -10,7 +10,7 @@ servos = False
 wheels = False
 hz = 30
 r = 1.0 / hz
-seconds = 0.3
+seconds = 0.5
 
 def setup():
     global servos
@@ -48,16 +48,21 @@ def horizontalServo(pos):
 
     #TODO: only move wheels if past max position
     trackingMode = rospy.get_param("/vision/trackingMode")
+    if trackingMode == 0:
+        servos[1].setPosition(newPos)
+
     # if tracking mode is passive or active, move wheels when servo is at max pos
-    if trackingMode > 0:
+    # and don't move the servo
+    else:
         if newPos < minPos:
             delta = minPos - newPos
+            twist = createTwist(0, 80)
             rospy.loginfo("Move wheels left")
 
             index = 0
             # publish motor commands for x seconds
             while not rospy.is_shutdown():
-                wheels.publish(createTwist(0, 80))
+                wheels.publish(twist)
                 index += 1
                 if index == seconds * hz:
                     break
@@ -65,12 +70,13 @@ def horizontalServo(pos):
 
         elif newPos > maxPos:
             delta = newPos - maxPos
+            twist = createTwist(0, -80)
             rospy.loginfo("Move wheels right")
 
             index = 0
             # publish motor commands for x seconds
             while not rospy.is_shutdown():
-                wheels.publish(createTwist(0, -80))
+                wheels.publish(twist)
                 index += 1
                 if index == seconds * hz:
                     break
