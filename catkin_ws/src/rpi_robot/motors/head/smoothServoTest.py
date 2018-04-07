@@ -49,6 +49,9 @@ per2 = 0
 def delay(number):
     sleep(number / 1000.0)
 
+def sin(val):
+    return math.sin(val)
+
 
 # start of primary move function that includes all servos and is called up and activated per each event
 def movef(ecycle, s1, w81, spa1, spb1, yprev1, ynext1, s2,  w82, spa2, spb2, yprev2, ynext2):
@@ -99,7 +102,7 @@ def movef(ecycle, s1, w81, spa1, spb1, yprev1, ynext1, s2,  w82, spa2, spb2, ypr
 
 
     # ##########   GLOBAL LOOP FOR ALL SERVOS #######################
-    for count in range(0, ecycle):
+    for count in range(0, int(ecycle)):
         # traditional speed values start off as spa# and end up as spb# as count# ticks away on the fly as curve is being drawn.
         #  result is a sine curve that is compressed in the x axis on one end (spa#=large number) and stretched on other end (spb#=small number).
 
@@ -269,4 +272,4 @@ if __name__ == '__main__':
         print "interrupted by user"
     finally:
     	print "cleaning up"
-    	cleanup([servo1, servo2])
+    	cleanup()
