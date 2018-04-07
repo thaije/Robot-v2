@@ -19,8 +19,8 @@ hor_servo = False
 
 # how to run:
 # on rpi:
-# sudo pigpiod
 # roscore
+# sudo pigpiod
 # roslaunch rpi_robot diff_drive_rpi.launch
 # roslaunch rpi_robot vision_rpi.launch
 
