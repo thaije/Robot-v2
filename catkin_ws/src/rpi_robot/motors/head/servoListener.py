@@ -51,14 +51,14 @@ def horizontalServo(pos):
             delta = minPos - newPos
             rospy.loginfo("Move wheels left")
             wheels.publish(createTwist(0, 80))
-            sleep(0.3)
+            sleep(0.5)
             wheels.publish(createTwist(0, 0))
 
         elif newPos > maxPos:
             delta = newPos - maxPos
             rospy.loginfo("Move wheels right")
             wheels.publish(createTwist(0, -80))
-            sleep(0.3)
+            sleep(0.5)
             wheels.publish(createTwist(0, 0))
 
 
