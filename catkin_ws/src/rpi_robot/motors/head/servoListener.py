@@ -10,7 +10,7 @@ servos = False
 wheels = False
 hz = 30
 r = 1.0 / hz
-seconds = 0.2
+seconds = 0.4
 
 def setup():
     global servos
@@ -44,7 +44,6 @@ def horizontalServo(pos):
     (minPos, maxPos) = servos[1].getMinMax()
     oldPos = servos[1].getPosition()
     newPos = oldPos + pos.data
-    servos[1].setPosition(newPos)
 
     #TODO: only move wheels if past max position
     trackingMode = rospy.get_param("/vision/trackingMode")
@@ -67,6 +66,7 @@ def horizontalServo(pos):
                 if index == seconds * hz:
                     break
                 sleep(r)
+            servos[1].setPosition(oldPos + 75)
 
         elif newPos > maxPos:
             delta = newPos - maxPos
@@ -81,6 +81,7 @@ def horizontalServo(pos):
                 if index == seconds * hz:
                     break
                 sleep(r)
+            servos[1].setPosition(oldPos - 75)
 
 
 def createTwist(x, th):
