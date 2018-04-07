@@ -1,7 +1,7 @@
 <launch>
     <group ns="vision">
         <!-- 0 = stagnant, 1 = passive, 2 = active -->
-        <param name="trackingMode" value="0" type="int" />
+        <param name="trackingMode" value="1" type="int" />
     </group>
 
     <node name="object_detection" pkg="rpi_robot" type="objectDetection.py"/>

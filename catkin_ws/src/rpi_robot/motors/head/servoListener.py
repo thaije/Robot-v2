@@ -4,10 +4,13 @@ import rospy
 from std_msgs.msg import Float32
 from geometry_msgs.msg import Twist
 import servoPWM as servoControl
-import time
+import sleep
 
 servos = False
 wheels = False
+hz = 30
+r = rospy.Rate(hz)
+time = 0.3
 
 def setup():
     global servos
@@ -50,16 +53,27 @@ def horizontalServo(pos):
         if newPos < minPos:
             delta = minPos - newPos
             rospy.loginfo("Move wheels left")
-            wheels.publish(createTwist(0, 80))
-            sleep(0.3)
-            wheels.publish(createTwist(0, 0))
+
+            # publish motor commands for x seconds
+            while not rospy.is_shutdown():
+                wheels.publish(createTwist(0, 80))
+                index += 1
+                if index == seconds * hz:
+                    break
+                r.sleep()
+
 
         elif newPos > maxPos:
             delta = newPos - maxPos
             rospy.loginfo("Move wheels right")
-            wheels.publish(createTwist(0, -80))
-            sleep(0.3)
-            wheels.publish(createTwist(0, 0))
+
+            # publish motor commands for x seconds
+            while not rospy.is_shutdown():
+                wheels.publish(createTwist(0, -80))
+                index += 1
+                if index == seconds * hz:
+                    break
+                r.sleep()
 
 
 def createTwist(x, th):
