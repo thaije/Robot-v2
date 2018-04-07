@@ -4,13 +4,13 @@ import rospy
 from std_msgs.msg import Float32
 from geometry_msgs.msg import Twist
 import servoPWM as servoControl
-import sleep
+from time import sleep
 
 servos = False
 wheels = False
 hz = 30
-r = rospy.Rate(hz)
-time = 0.3
+r = 1.0 / hz
+seconds = 0.3
 
 def setup():
     global servos
@@ -46,7 +46,7 @@ def horizontalServo(pos):
     newPos = oldPos + pos.data
     servos[1].setPosition(newPos)
 
-
+    #TODO: only move wheels if past max position
     trackingMode = rospy.get_param("/vision/trackingMode")
     # if tracking mode is passive or active, move wheels when servo is at max pos
     if trackingMode > 0:
@@ -54,25 +54,27 @@ def horizontalServo(pos):
             delta = minPos - newPos
             rospy.loginfo("Move wheels left")
 
+            index = 0
             # publish motor commands for x seconds
             while not rospy.is_shutdown():
                 wheels.publish(createTwist(0, 80))
                 index += 1
                 if index == seconds * hz:
                     break
-                r.sleep()
+                sleep(r)
 
         elif newPos > maxPos:
             delta = newPos - maxPos
             rospy.loginfo("Move wheels right")
 
+            index = 0
             # publish motor commands for x seconds
             while not rospy.is_shutdown():
                 wheels.publish(createTwist(0, -80))
                 index += 1
                 if index == seconds * hz:
                     break
-                r.sleep()
+                sleep(r)
 
 
 def createTwist(x, th):
