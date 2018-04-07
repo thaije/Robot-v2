@@ -10,7 +10,7 @@ servos = False
 wheels = False
 hz = 30
 r = 1.0 / hz
-seconds = 0.4
+seconds = 0.3
 
 def setup():
     global servos
@@ -66,7 +66,7 @@ def horizontalServo(pos):
                 if index == seconds * hz:
                     break
                 sleep(r)
-            servos[1].setPosition(oldPos + 75)
+            # servos[1].setPosition(oldPos + 75)
 
         elif newPos > maxPos:
             delta = newPos - maxPos
@@ -81,7 +81,7 @@ def horizontalServo(pos):
                 if index == seconds * hz:
                     break
                 sleep(r)
-            servos[1].setPosition(oldPos - 75)
+            # servos[1].setPosition(oldPos - 75)
         else:
             servos[1].setPosition(newPos)
 
