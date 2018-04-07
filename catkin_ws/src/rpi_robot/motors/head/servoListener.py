@@ -82,6 +82,8 @@ def horizontalServo(pos):
                     break
                 sleep(r)
             servos[1].setPosition(oldPos - 75)
+        else:
+            servos[1].setPosition(newPos)
 
 
 def createTwist(x, th):
