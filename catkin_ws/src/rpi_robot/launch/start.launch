@@ -1,16 +1,16 @@
 
 <launch>
-    <group ns="sensors">
+   <!-- <group ns="sensors">-->
   <!--      <group ns="ultrasonic">
             <node name="head" pkg="rpi_robot" type="ultrasHeadPub.py" />
             <node name="frontRight" pkg="rpi_robot" type="ultrasFrontRightPub.py" />
             <node name="frontLeft" pkg="rpi_robot" type="ultrasFrontLeftPub.py" />
-        </group>-->
-        <group ns="encoders">
+        </group>
+        <group ns="encoders"> -->
             <node name="lwheel" pkg="rpi_robot" type="lticksPublisher.py" />
             <node name="rwheel" pkg="rpi_robot" type="rticksPublisher.py" />
-        </group>
-    </group>
+       <!-- </group>
+    </group>-->
     <!-- <group ns="motors">
         <group ns="drive">
             <node name="motorListener" pkg="rpi_robot" type="motorListener.py" />
