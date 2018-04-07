@@ -19,9 +19,11 @@ hor_servo = False
 
 # how to run:
 # on rpi:
+# roslaunch rpi_robot diff_drive_rpi.launch
 # roslaunch rpi_robot vision_rpi.launch
 
 # on pc:
+# roslaunch rpi_robot diff_drive_pc.launch
 # roslaunch rpi_robot vision_pc.launch
 
 
