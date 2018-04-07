@@ -20,18 +20,21 @@ class Servo:
 
     # set the position of the servo
     def setPosition(self, position):
-        new_pos = clamp(position, self.minPos, self.maxPos)
 
-        # calc change
-        delta = abs(new_pos - self.position)
+        print "new position:", new_pos
 
-        self.position = new_pos
-        pi.set_servo_pulsewidth(self.pin, self.position)
-
-        # give the servo some time to move to the target pos
-        wait_time = (self.secs_per_100 / 100) * delta
-        time.sleep(wait_time)
-        pi.set_servo_pulsewidth(self.pin, 0)
+        # new_pos = clamp(position, self.minPos, self.maxPos)
+        #
+        # # calc change
+        # delta = abs(new_pos - self.position)
+        #
+        # self.position = new_pos
+        # pi.set_servo_pulsewidth(self.pin, self.position)
+        #
+        # # give the servo some time to move to the target pos
+        # wait_time = (self.secs_per_100 / 100) * delta
+        # time.sleep(wait_time)
+        # pi.set_servo_pulsewidth(self.pin, 0)
 
     def center(self):
         self.setPosition(self.centerPosition)
