@@ -10,7 +10,7 @@ servos = False
 wheels = False
 hz = 30
 r = 1.0 / hz
-seconds = 0.5
+seconds = 0.2
 
 def setup():
     global servos
@@ -67,7 +67,6 @@ def horizontalServo(pos):
                 if index == seconds * hz:
                     break
                 sleep(r)
-            servos[1].setPosition(oldPos - 50)
 
         elif newPos > maxPos:
             delta = newPos - maxPos
@@ -82,7 +81,6 @@ def horizontalServo(pos):
                 if index == seconds * hz:
                     break
                 sleep(r)
-            servos[1].setPosition(oldPos + 50)
 
 
 def createTwist(x, th):
