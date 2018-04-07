@@ -5,6 +5,6 @@
         <rosparam param="base_width">0.17</rosparam>
     </node>
     <!-- rosrun teleop_twist_keyboard teleop_twist_keyboard.py -->
-    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
+    <!-- <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/> -->
 
 </launch>

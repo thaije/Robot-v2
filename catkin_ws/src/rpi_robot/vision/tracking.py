@@ -23,10 +23,10 @@ face_offset = 0.1
 # Center the object in the image, with the servo change relative to the
 # distance of the center
 def centerOnObject(midX, midY, width, height, ver_servo, hor_servo):
-    # trackingMode = rospy.get_param("/speech/trackingMode")
+    # trackingMode = rospy.get_param("/vision/trackingMode")
 
     err = 0
-    # movedTicks = 0
+    movedTicks = 0
 
     right = midX > ( width * (0.5 + face_offset) )
     left = midX < ( width * (0.5 - face_offset) )
@@ -38,15 +38,15 @@ def centerOnObject(midX, midY, width, height, ver_servo, hor_servo):
         # blockedImageProcessing = True
         if right: # is right
             err = ( width * (0.5 + face_offset) ) - midX
-            rospy.loginfo("Object is ", err, " right from center")
+            rospy.loginfo("Object is " + str(err) + " right from center")
         else: # is left
             err = ( width * (0.5 - face_offset) ) - midX
-            rospy.loginfo("Object is ", err, " left from center")
+            rospy.loginfo("Object is " + str(err) + " left from center")
 
         # calc error
         err_percentage = (-err / float(width)) * 100
         adj = err_percentage * servoticks_per_img_perc
-        rospy.loginfo("Err percent of object is:", err_percentage, " -> adjust:", adj , " ticks")
+        rospy.loginfo("Err percent of object is:" + str(err_percentage) + " -> adjust:" + str(adj) + " ticks")
 
         hor_servo.publish(adj)
         movedTicks = abs(adj)
@@ -56,15 +56,15 @@ def centerOnObject(midX, midY, width, height, ver_servo, hor_servo):
         blockedImageProcessing = True
         if down: # is down
             err = ( height * (0.5 + face_offset) ) - midY
-            rospy.loginfo("Object is ", err, " down from center")
+            rospy.loginfo("Object is " + str(err) + " down from center")
         else: # is up
             err = ( height * (0.5 - face_offset) ) - midY
-            rospy.loginfo("Object is ", err, " up from center")
+            rospy.loginfo("Object is " + str(err) + " up from center")
 
         # calc error
         err_percentage = (err / float(width)) * 100
         adj = err_percentage * servoticks_per_img_perc
-        rospy.loginfo("Err percent of object is:", err_percentage, " -> adjust:", adj , " ticks")
+        rospy.loginfo("Err percent of object is:" + str(err_percentage) + " -> adjust:" + str(adj) + " ticks")
 
         ver_servo.publish(adj)
 

@@ -79,7 +79,7 @@ def faceDetection(img, draw):
     return ()
 
 # get center of detected face, and return the coordinates
-def getFaceCenter(faceID):
+def getFaceCenter(faces, faceID):
     [x, y, w, h] = faces[faceID]
     [midX, midY] = x + 0.5 * w, y + 0.5 * h
     return [midX, midY]

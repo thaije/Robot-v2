@@ -11,7 +11,7 @@ from geometry_msgs.msg import Twist
 from std_msgs.msg import Float32
 
 # other functions
-import tracking as track
+import tracking
 import faceDetection as faceD
 
 ver_servo = False
@@ -47,9 +47,9 @@ class image_feature:
         # check for faces, and track
         faces = faceD.faceDetection(img, draw=True)
         if faces != ():
-            print "Found face"
+            rospy.loginfo("Face detected")
             # track face
-            [midX, midY] = faceD.getCenterCoords(faceID=0)
+            [midX, midY] = faceD.getFaceCenter(faces, faceID=0)
             tracking.centerOnObject(midX, midY, width, height, ver_servo, hor_servo)
 
         # Display the resulting img

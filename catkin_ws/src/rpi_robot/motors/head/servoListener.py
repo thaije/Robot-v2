@@ -50,20 +50,26 @@ def horizontalServo(pos):
         if newPos < minPos:
             delta = minPos - newPos
             rospy.loginfo("Move wheels left")
-            # twist = createTwist(80, -80)
+            wheels.publish(createTwist(0, 80))
+            sleep(0.3)
+            wheels.publish(createTwist(0, 0))
 
         elif newPos > maxPos:
             delta = newPos - maxPos
             rospy.loginfo("Move wheels right")
-            # twist = createTwist(-80, 80)
+            wheels.publish(createTwist(0, -80))
+            sleep(0.3)
+            wheels.publish(createTwist(0, 0))
 
 
-def createTwist(left, right):
+def createTwist(x, th):
     twist = Twist()
-    twist.linear.x = x*speed; twist.linear.y = y*speed; twist.linear.z = z*speed;
+    twist.linear.x = x
+    twist.linear.y = 0
+    twist.linear.z = 0
     twist.angular.x = 0
     twist.angular.y = 0
-    twist.angular.z = th*turn
+    twist.angular.z = th
     return twist
 
 
@@ -73,7 +79,7 @@ def listener():
     rospy.init_node('servoListener', anonymous=True)
     rospy.Subscriber('ver_servo', Float32, verticalServo, queue_size=1)
     rospy.Subscriber('hor_servo', Float32, horizontalServo, queue_size=1)
-    wheels = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
+    wheels = rospy.Publisher('twist', Twist, queue_size = 1)
 
     rospy.spin()
 
