@@ -65,14 +65,13 @@ def movef(ecycle, s1, w81, spa1, spb1, yprev1, ynext1, s2,  w82, spa2, spb2, ypr
     delay(1)   # master delay
     # resets and values established
     per1=0
-    per2=0
     count1 = 1
     count1s =1
     speedtick1 = 1
-    b1=(2*pie/(sinsize*2))  # coefficient of sine math function
-
+    b1 = (2*pie/(sinsize*2))  # coefficient of sine math function
     sinsize1=((s1*2)-1)*sinsize  # ranges from s1=1,2,3,4,5 sinsize#= 1*1700,3*1700,5*1700,7*1700
 
+    per2=0
     count2 = 1
     count2s =1
     speedtick2 = 1
@@ -207,9 +206,9 @@ def movef(ecycle, s1, w81, spa1, spb1, yprev1, ynext1, s2,  w82, spa2, spb2, ypr
                 elif count2/sinsize >= 6 and count2/sinsize < 7:
                     count2s +=1
 
-            # breaks FOR loop out of further un necessary cycles as all servos report their movement complete
-            if per1 == 1 and per2 == 1:
-                break
+        # breaks FOR loop out of further un necessary cycles as all servos report their movement complete
+        if per1 == 1 and per2 == 1:
+            break
 
     # ############# END OF GLOBAL LOOP FOR ALL SERVOS ############
 # end of void subroutine function for entire move function
