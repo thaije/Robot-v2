@@ -9,12 +9,12 @@ sinsize = 1700.0
 event = sinsize * 100.0
 
 # servo 1 800-2200 decrease to open
-svo1c   = 1750  #servo closed position
-svo1o   = 600   #servo open position
+svo1c   = 1750    # servo closed position
+svo1o   = 600     # servo open position
 
 # servo 2 800-2200 increase to open
-svo2c   = 600   # servo closed position
-svo2o   = 2400  # servo open position
+svo2c   = 600     # servo closed position
+svo2o   = 2400    # servo open position
 
 
 
@@ -23,14 +23,14 @@ count1s = 0.0
 speed1 = 0.0      # a value that consists of small increment values that change in magnitude depending on if the wave starts slow and ends fast or vise versa.
 speedtick1 = 0.0  # ticks off how long the hold position for the servo is in very small ms increments giving the illusion of a slower or faster moving servo
 sinsize1 = 0.0
-                # y= a*sin(bx+c)+d
-                # yvar# = a#(sin (b#*count#+c#)+d#
+                  # y= a*sin(bx+c)+d
+                  # yvar# = a#(sin (b#*count#+c#)+d#
 yvar1 = 0.0       # actual ms value thrown at servo ranged, paused, speed shifted etc.
 a1 = 0.0          # a amplitude higher value taller wave shorter value shorter wave by magnitude:   a=(highest # - lowest #)/2
 b1 = 0.0          # b lower value = longer wave or higher value=shorter wave this is phase shift or stretch of function b=2pi/(period*2) where period is desired wave size
 c1 = 0.0          # c is x frequency offset = what part of curve want to look at
 d1 = 0.0          # d is y offset  = 0.5*amplitude shifts the curve so it is wholey in 1st quadrant
-per1 = 0    # trigger value either 0 or 1 to declare that that servo has reached its final position and so servo movement sequence of all servos (once all report per#=1)can end.
+per1 = 0          # trigger value either 0 or 1 to declare that that servo has reached its final position and so servo movement sequence of all servos (once all report per#=1)can end.
 
 count2 = 0.0
 count2s = 0.0
@@ -116,7 +116,9 @@ def movef(ecycle, s1, w81, spa1, spb1, yprev1, ynext1, s2,  w82, spa2, spb2, ypr
 
 
         #  servo #1   3 states or cases
-        if count < w81: # condition 1 servo not ready to move yet
+
+         # condition 1 servo not ready to move yet, sleep for start duration (w81)
+        if count < w81:
             servo1.setPosition(yprev1)
 
         # condition 3 motion is done and position is held
@@ -221,27 +223,21 @@ def loop():
     servo1.setPosition(svo1c)
     servo2.setPosition(svo2c)
 
-    # notes:
 
     # key:
     #  ecycle = time acts as the cut off when all servos have completed their one way motion
-    #  s# =number of times sine wave repeats
+    #  s# = number of times sine wave repeats
     #  w8#= 1000=1sec approx. each servo wait time
     #  spa# = start speed, range: 1-25 or 1 fast, 25 slow
     #  spb# = end speed, range: 1-25 or 1 fast, 25 slow
     #  yprev# = previous servo position
     #  ynext# = next position
-    #
-    # Servo servo1
-    # Servo servo2
 
-    # notes end
-
-
-    # key: movef(ecycle,s1, w81,spa1,spb1,yprev1,ynext1,s2, w82,spa2,spb2,yprev2,ynext2)
-    movef(event , 3, 100,10  ,25  ,svo1c ,svo1o ,3 ,5000,15  ,5   ,svo2c ,svo2o)
+    # key:ecycle, s1,w81, spa1,spb1,yprev1,ynext1,s2,w82,spa2, spb2,yprev2,ynext2)
+    movef(event , 3, 100, 10  ,25  ,svo1c ,svo1o ,3 ,5000,15  ,5   ,svo2c ,svo2o)
+    print "Done with first loop"
     delay(2000)
-    movef(event , 1,5000,25  ,5   ,svo1o ,svo1c ,1 ,1100,1   ,15  ,svo2o ,svo2c)
+    movef(event , 1, 5000,25  ,5   ,svo1o ,svo1c ,1 ,1100,1   ,15  ,svo2o ,svo2c)
     delay(4000)
 
 
