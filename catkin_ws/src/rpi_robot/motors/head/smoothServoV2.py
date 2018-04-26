@@ -158,19 +158,31 @@ def sin(val):
 
 
 
-def main():
-    # Set servo actively to position
-    for servo in servos:
-        servo.setPosition(servo.position)
+def initiateMovement(goalPositions):
+    numberOfServos = 2
+    thresholdForMaxSpeed = 500.0
 
-    # set to max up, max right
-    goalPos = [1750, 2400]
     # list with start, end speeds for each servo, 1=fast, 25=slow
+    # set by default to max speed
+    goalSpeeds = [1, 1] * numberOfServos
+
+    # # Set servo actively to position
+    # for i, servo in enumerate(servos):
+    #     servo.setPosition(servo.position)
+    #
+    #     # calc the speed of the movement, larger movement is higher speed
+    #     # start and endspeed is the same for our application
+    #     movementChange = abs(servo.position - goalPos[i])
+    #     if movementChange < thresholdForMaxSpeed:
+    #         speed = (movementChange / thresholdForMaxSpeed) * 25
+    #         goalSpeeds[i] = [speed, speed]
+
+
     goalSpeeds = [[25, 5], [1, 15]]
     # delay in ms for each servo before starting movement
     startDelay = [100, 100]
 
-    moveServos(goalPos, totalSteps, goalSpeeds, startDelay)
+    moveServos(goalPositions, totalSteps, goalSpeeds, startDelay)
     print("Done")
 
 
@@ -206,7 +218,7 @@ def cleanup():
 if __name__ == '__main__':
     setup()
     try:
-        main()
+        initiateMovement([1750, 2400])
     except KeyboardInterrupt:
         print "interrupted by user"
     finally:
