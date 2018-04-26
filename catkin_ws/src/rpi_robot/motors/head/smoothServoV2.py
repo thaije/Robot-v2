@@ -87,6 +87,7 @@ def moveServos(goalPos, steps, goalSpeeds, startDelay):
             print "Motion complete:", motionComplete
             break
 
+
         for i, servo in enumerate(servos):
 
             # Speed values start off at startspeed and end up at endspeed as the
@@ -102,17 +103,15 @@ def moveServos(goalPos, steps, goalSpeeds, startDelay):
                 waitPerPos[i] = ((counts[i] + 1.0) / sinsize) * (goalSpeeds[i][1] - goalSpeeds[i][0]) + goalSpeeds[i][0]
 
 
-
             ## condition 1
             # We have to wait for startDelay to end before starting the movement
             if step < startDelay[i]:
-                # NOTE: do sleep here?
-                pass
+                servo.setPosition(servo.position)
 
             ## condition 2
             # motion is done and position held
-            elif step > sinsize:
-                print "Motion should be done, as step (%d) > sinsize (%d)" % (step, sinsize)
+            elif count[i] > sinsize:
+                # print "Motion should be done, as step (%d) > sinsize (%d)" % (step, sinsize)
                 servo.setPosition(goalPos[i])
                 motionComplete[i] = True
 
@@ -130,7 +129,7 @@ def moveServos(goalPos, steps, goalSpeeds, startDelay):
 
                 # keep the servo at a position for x ticks such as defined in waitPerPos
                 elif timeOnPos[i] > 1 and timeOnPos[i] < waitPerPos[i]:
-                    # servo.setPosition(newPos[i]) # NOTE: extra?
+                    servo.setPosition(newPos[i]) # NOTE: extra?
                     timeOnPos[i] += 1
 
                 # If waited long enough on position, reset timeOnPos to enable
@@ -167,7 +166,7 @@ def main():
     # set to max up, max right
     goalPos = [1750, 2400]
     # list with start, end speeds for each servo, 1=fast, 25=slow
-    goalSpeeds = [[1, 1], [1, 1]]
+    goalSpeeds = [[25, 5], [1, 15]]
     # delay in ms for each servo before starting movement
     startDelay = [100, 100]
 
@@ -176,15 +175,19 @@ def main():
 
 
 # test class instead of using servo class connected to rpi GPIO servos
-#class Servo:
+# class Servo:
 #    def __init__(self, name, minPos, maxPos):
 #        self.position = minPos
 #        self.name = name
 #        self.minPos = minPos
 #        self.maxPos = maxPos
-
+#
 #    def setPosition(self, pos):
-#        print("Set %s servo to position %d" % (self.name, pos) )
+#        delay(5)
+#        if self.name is "vertical":
+#            print "Set %s servo to position %d" % (self.name, pos)
+#        else:
+#            print " "*40, "Set", self.name, "servo to position", pos
 
 
 def setup():
