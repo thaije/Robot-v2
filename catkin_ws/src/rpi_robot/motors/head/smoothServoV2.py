@@ -1,4 +1,4 @@
-# import servoPWM as servoControl
+import servoPWM as servoControl
 import math
 from time import sleep
 
@@ -176,24 +176,24 @@ def main():
 
 
 # test class instead of using servo class connected to rpi GPIO servos
-class Servo:
-    def __init__(self, name, minPos, maxPos):
-        self.position = minPos
-        self.name = name
-        self.minPos = minPos
-        self.maxPos = maxPos
+#class Servo:
+#    def __init__(self, name, minPos, maxPos):
+#        self.position = minPos
+#        self.name = name
+#        self.minPos = minPos
+#        self.maxPos = maxPos
 
-    def setPosition(self, pos):
-        print("Set %s servo to position %d" % (self.name, pos) )
+#    def setPosition(self, pos):
+#        print("Set %s servo to position %d" % (self.name, pos) )
 
 
 def setup():
     global servos
     # [verticalServo, horizontalServo]
-    # servos = servoControl.initialize_default_servos()
+    servos = servoControl.initialize_default_servos()
 
     # test
-    servos = [Servo("vertical", 600, 1750), Servo("horizontal", 600, 2400)]
+    # servos = [Servo("vertical", 600, 1750), Servo("horizontal", 600, 2400)]
 
 
 def cleanup():
@@ -208,4 +208,4 @@ if __name__ == '__main__':
         print "interrupted by user"
     finally:
     	print "cleaning up"
-    	# cleanup()
+    	cleanup()

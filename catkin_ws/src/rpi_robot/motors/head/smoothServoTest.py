@@ -236,9 +236,15 @@ def loop():
     #  ynext# = next position
 
     # key:ecycle, s1,w81, spa1,spb1,yprev1,ynext1,s2,w82,spa2, spb2,yprev2,ynext2)
-    # movef(event , 3, 100, 10  ,25  ,svo1c ,svo1o ,3 ,5000,15  ,5   ,svo2c ,svo2o)
-    # print "Done with first loop"
-    # delay(2000)
+
+    # # servo 1 800-2200 decrease to open
+    # svo1c   = 1750    # servo closed position
+    # svo1o   = 600     # servo open position
+    #
+    # # servo 2 800-2200 increase to open
+    # svo2c   = 600     # servo closed position
+    # svo2o   = 2400    # servo open position
+
     movef(event , 1, 5000,25  ,5   ,svo1o ,svo1c ,1 ,1100,1   ,15  ,svo2o ,svo2c)
     print "Done with second loop"
     delay(4000)
