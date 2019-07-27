@@ -39,4 +39,4 @@ User fedya
 Login kutraspberry
 
 ssh: `ssh fedya@192.168.178.68`
-password: `kutraspberry`
+
