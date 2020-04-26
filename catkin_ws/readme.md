@@ -49,14 +49,12 @@ rpi:
 ip: 192.168.178.68
 hostname: fedya-rpi
 user: fedya
-password: kutraspberry
 Command: ssh fedya@fedya-rpi.local
 
 laptop:
 hostname: tjalling-Lenovo-G780
 ip: 192.168.178.66
 user: tjalling
-password: kutlinux
 Command: ssh tjalling@tjalling-Lenovo-G780.local
 ```
 
